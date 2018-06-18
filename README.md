@@ -1,18 +1,14 @@
-# react-window
+# react-virtualized-auto-sizer
 
-> React components for efficiently rendering large lists and tabular data
+> Standalone version of the AutoSizer component from react-virtualized
 
-[![NPM](https://img.shields.io/npm/v/react-window.svg)](https://www.npmjs.com/package/react-window) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/react-virtualized-auto-sizer.svg)](https://www.npmjs.com/package/react-virtualized-auto-sizer) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
 ```bash
-npm install --save react-window@alpha
+npm install --save react-virtualized-auto-sizer
 ```
-
-## Usage
-
-Learn more at [react-window.now.sh](https://react-window.now.sh/).
 
 ## License
 

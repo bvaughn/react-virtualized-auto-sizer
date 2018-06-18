@@ -1,6 +1,6 @@
 {
   "name": "react-virtualized-auto-sizer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Standalone version of the AutoSizer component from react-virtualized",
   "author": "Brian Vaughn <brian.david.vaughn@gmail.com> (https://github.com/bvaughn/)",
   "contributors": [
@@ -35,7 +35,7 @@
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "files": [
-    "dist"
+    "dist/*"
   ],
   "scripts": {
     "precommit": "lint-staged",
@@ -45,7 +45,6 @@
     "test": "cross-env CI=1 react-scripts test --env=jsdom",
     "test:watch": "react-scripts test --env=jsdom",
     "build": "del dist && rollup -c",
-    "postbuild": "cp ./package.json ./dist/",
     "start": "rollup -c -w",
     "prepare": "yarn run build",
     "predeploy": "cd example && yarn install && yarn run build",

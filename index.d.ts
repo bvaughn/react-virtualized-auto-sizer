@@ -1,5 +1,4 @@
 declare module 'react-virtualized-auto-sizer' {
-
   import { CSSProperties } from 'react';
 
   interface Size {
@@ -7,7 +6,7 @@ declare module 'react-virtualized-auto-sizer' {
     width: number;
   }
 
-class AutoSizer extends React.Component<{
+  class AutoSizer extends React.Component<{
     className?: string;
     defaultHeight?: number;
     defaultWidth?: number;
@@ -17,7 +16,7 @@ class AutoSizer extends React.Component<{
     onResize?: (size: Size) => void;
     style?: CSSProperties;
     children: (size: Size) => React.ReactNode;
-  }, {}> {}
+  }> {}
 
   export default AutoSizer;
 }

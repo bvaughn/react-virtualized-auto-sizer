@@ -33,6 +33,9 @@ type Props = {
   /** Callback to be invoked on-resize */
   onResize: Size => void,
 
+  /** Number of milliseconds to wait before triggering a resize */
+  debounce ?: number,
+
   /** Optional inline style */
   style: ?Object,
 };
@@ -152,6 +155,20 @@ export default class AutoSizer extends React.PureComponent<Props, State> {
   }
 
   _onResize = () => {
+    const {debounce} = this.props;
+    if (debounce === undefined) {
+      this._doOnResize();
+    }
+    else {
+      if (this.debounceTimeout) {
+        window.clearTimeout(this.debounceTimeout);
+      }
+      this.debounceTimeout = window.setTimeout(this._doOnResize, debounce);
+    }
+  }
+
+  _doOnResize = () => {
+    this.debounceTimeout = null;
     const {disableHeight, disableWidth, onResize} = this.props;
 
     if (this._parentNode) {

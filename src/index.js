@@ -77,7 +77,7 @@ export default class AutoSizer extends React.PureComponent<Props, State> {
       this._autoSizer.parentNode.ownerDocument &&
       this._autoSizer.parentNode.ownerDocument.defaultView &&
       this._autoSizer.parentNode instanceof
-        this._autoSizer.parentNode.ownerDocument.defaultView.HTMLElement
+      this._autoSizer.parentNode.ownerDocument.defaultView.HTMLElement
     ) {
       // Delay access of parentNode until mount.
       // This handles edge-cases where the component has already been unmounted before its ref has been set,
@@ -97,6 +97,9 @@ export default class AutoSizer extends React.PureComponent<Props, State> {
   }
 
   componentWillUnmount() {
+    if (this.debounceTimeout) {
+      window.clearTimeout(this.debounceTimeout);
+    }
     if (this._detectElementResize && this._parentNode) {
       this._detectElementResize.removeResizeListener(
         this._parentNode,

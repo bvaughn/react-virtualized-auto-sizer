@@ -27,6 +27,9 @@ type Props = {
   /** Disable dynamic :width property */
   disableWidth: boolean,
 
+  /** Enable setting width on containing div, to allow horizontal scrolling */
+  setWidthOnContainer: boolean,
+
   /** Nonce of the inlined stylesheet for Content Security Policy */
   nonce?: string,
 
@@ -54,6 +57,7 @@ export default class AutoSizer extends React.PureComponent<Props, State> {
     onResize: () => {},
     disableHeight: false,
     disableWidth: false,
+    setWidthOnContainer: false,
     style: {},
   };
 
@@ -108,6 +112,7 @@ export default class AutoSizer extends React.PureComponent<Props, State> {
       className,
       disableHeight,
       disableWidth,
+      setWidthOnContainer,
       style,
     } = this.props;
     const {height, width} = this.state;
@@ -134,7 +139,7 @@ export default class AutoSizer extends React.PureComponent<Props, State> {
       if (width === 0) {
         bailoutOnChildren = true;
       }
-      outerStyle.width = 0;
+      outerStyle.width = setWidthOnContainer ? width : 0;
       childParams.width = width;
     }
 

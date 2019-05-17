@@ -42,6 +42,7 @@ describe('AutoSizer', () => {
     defaultWidth = undefined,
     disableHeight = false,
     disableWidth = false,
+    setWidthOnContainer = false,
     foo = 456,
     height = 100,
     onResize,
@@ -72,6 +73,7 @@ describe('AutoSizer', () => {
           defaultWidth={defaultWidth}
           disableHeight={disableHeight}
           disableWidth={disableWidth}
+          setWidthOnContainer={setWidthOnContainer}
           onResize={onResize}
           style={style}>
           {({height, width}) => (
@@ -129,6 +131,7 @@ describe('AutoSizer', () => {
 
   it('should not update :width if :disableWidth is true', () => {
     const rendered = findDOMNode(render(getMarkup({disableWidth: true})));
+    expect(rendered.style.width).toEqual('200px');
     expect(rendered.textContent).toContain('height:100');
     expect(rendered.textContent).toContain('width:undefined');
   });
@@ -138,6 +141,20 @@ describe('AutoSizer', () => {
     expect(rendered.textContent).toContain('height:undefined');
     expect(rendered.textContent).toContain('width:200');
   });
+
+  it('should set width on container if :setWidthOnContainer is false', () => {
+    const rendered = findDOMNode(render(getMarkup({ setWidthOnContainer: false })));
+    expect(rendered.children["0"].style.width).toEqual('0px');
+    expect(rendered.textContent).toContain('height:100');
+    expect(rendered.textContent).toContain('width:200');
+  })
+
+  it('should set width on container if :setWidthOnContainer is true', () => {
+    const rendered = findDOMNode(render(getMarkup({ setWidthOnContainer: true })));
+    expect(rendered.children["0"].style.width).toEqual('200px');
+    expect(rendered.textContent).toContain('height:100');
+    expect(rendered.textContent).toContain('width:200');
+  })
 
   async function simulateResize({element, height, width}) {
     mockOffsetSize(width, height);

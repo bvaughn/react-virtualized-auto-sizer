@@ -10,6 +10,10 @@
 npm install --save react-virtualized-auto-sizer
 ```
 
+## Documentation
+
+Please see API documentation of "AutoSizer" in `react-virtualized` package [here](https://github.com/bvaughn/react-virtualized/blob/master/docs/AutoSizer.md).
+
 ## License
 
 MIT © [bvaughn](https://github.com/bvaughn)

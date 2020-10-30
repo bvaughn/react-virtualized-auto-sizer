@@ -1,19 +1,19 @@
 {
-  "name": "react-virtualized-auto-sizer",
-  "version": "1.0.2",
+  "name": "react-virtualized-auto-sizer-pro",
+  "version": "1.0.0",
   "description": "Standalone version of the AutoSizer component from react-virtualized",
-  "author": "Brian Vaughn <brian.david.vaughn@gmail.com> (https://github.com/bvaughn/)",
+  "author": "Kerita <kerita@qq.com> (https://github.com/kerita/)",
   "contributors": [
-    "Brian Vaughn <brian.david.vaughn@gmail.com> (https://github.com/bvaughn/)"
+    "Kerita <kerita@qq.com> (https://github.com/kerita/)"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/bvaughn/react-virtualized-auto-sizer/",
+  "homepage": "https://github.com/kerita/react-virtualized-auto-sizer-pro/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bvaughn/react-virtualized-auto-sizer.git"
+    "url": "https://github.com/kerita/react-virtualized-auto-sizer-pro.git"
   },
   "bugs": {
-    "url": "https://github.com/bvaughn/react-virtualized-auto-sizer/issues"
+    "url": "https://github.com/kerita/react-virtualized-auto-sizer-pro/issues"
   },
   "engines": {
     "node": ">8.0.0"

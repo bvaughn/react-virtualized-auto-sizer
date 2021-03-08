@@ -18,6 +18,11 @@ export default {
       file: pkg.module,
       format: 'esm',
     },
+    {
+      file: pkg.browser,
+      format: 'iife',
+      name: "ReactVirtualizedAutoSizer",
+    },
   ],
   plugins: [
     external(),

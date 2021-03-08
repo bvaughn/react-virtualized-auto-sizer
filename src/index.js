@@ -145,7 +145,8 @@ export default class AutoSizer extends React.PureComponent<Props, State> {
         style={{
           ...outerStyle,
           ...style,
-        }}>
+        }}
+        {...this.props}>
         {!bailoutOnChildren && children(childParams)}
       </div>
     );

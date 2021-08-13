@@ -1,7 +1,7 @@
 /* global Element, Event */
 
 import * as React from 'react';
-import ReactDOM, {findDOMNode} from 'react-dom';
+import ReactDOM, { findDOMNode } from 'react-dom';
 import AutoSizer from '../index';
 
 function render(markup) {
@@ -27,7 +27,7 @@ render.unmount = function() {
   }
 };
 
-function DefaultChildComponent({height, width, foo, bar}) {
+function DefaultChildComponent({ height, width, foo, bar }) {
   return (
     <div>{`width:${width}, height:${height}, foo:${foo}, bar:${bar}`}</div>
   );
@@ -73,8 +73,9 @@ describe('AutoSizer', () => {
           disableHeight={disableHeight}
           disableWidth={disableWidth}
           onResize={onResize}
-          style={style}>
-          {({height, width}) => (
+          style={style}
+        >
+          {({ height, width }) => (
             <ChildComponent
               width={disableWidth ? undefined : width}
               height={disableHeight ? undefined : height}
@@ -120,26 +121,26 @@ describe('AutoSizer', () => {
           paddingLeft: 4,
           paddingRight: 4,
           paddingTop: 15,
-        }),
-      ),
+        })
+      )
     );
     expect(rendered.textContent).toContain('height:75');
     expect(rendered.textContent).toContain('width:192');
   });
 
   it('should not update :width if :disableWidth is true', () => {
-    const rendered = findDOMNode(render(getMarkup({disableWidth: true})));
+    const rendered = findDOMNode(render(getMarkup({ disableWidth: true })));
     expect(rendered.textContent).toContain('height:100');
     expect(rendered.textContent).toContain('width:undefined');
   });
 
   it('should not update :height if :disableHeight is true', () => {
-    const rendered = findDOMNode(render(getMarkup({disableHeight: true})));
+    const rendered = findDOMNode(render(getMarkup({ disableHeight: true })));
     expect(rendered.textContent).toContain('height:undefined');
     expect(rendered.textContent).toContain('width:200');
   });
 
-  async function simulateResize({element, height, width}) {
+  async function simulateResize({ element, height, width }) {
     mockOffsetSize(width, height);
 
     // Trigger detectElementResize library by faking a scroll event
@@ -157,12 +158,12 @@ describe('AutoSizer', () => {
         getMarkup({
           height: 100,
           width: 200,
-        }),
-      ),
+        })
+      )
     );
     expect(rendered.textContent).toContain('height:100');
     expect(rendered.textContent).toContain('width:200');
-    await simulateResize({element: rendered, height: 400, width: 300});
+    await simulateResize({ element: rendered, height: 400, width: 300 });
     expect(rendered.textContent).toContain('height:400');
     expect(rendered.textContent).toContain('width:300');
     done();
@@ -181,12 +182,12 @@ describe('AutoSizer', () => {
             height: 100,
             onResize,
             width: 200,
-          }),
-        ),
+          })
+        )
       );
       ChildComponent.mockClear(); // TODO Improve initial check in version 10; see AutoSizer render()
       expect(onResize).toHaveBeenCalledTimes(1);
-      await simulateResize({element: rendered, height: 400, width: 300});
+      await simulateResize({ element: rendered, height: 400, width: 300 });
       expect(ChildComponent).toHaveBeenCalledTimes(1);
       expect(onResize).toHaveBeenCalledTimes(2);
       done();
@@ -205,15 +206,15 @@ describe('AutoSizer', () => {
             height: 100,
             onResize,
             width: 200,
-          }),
-        ),
+          })
+        )
       );
       ChildComponent.mockClear(); // TODO Improve initial check in version 10; see AutoSizer render()
       expect(onResize).toHaveBeenCalledTimes(1);
-      await simulateResize({element: rendered, height: 100, width: 300});
+      await simulateResize({ element: rendered, height: 100, width: 300 });
       expect(ChildComponent).toHaveBeenCalledTimes(0);
       expect(onResize).toHaveBeenCalledTimes(1);
-      await simulateResize({element: rendered, height: 200, width: 300});
+      await simulateResize({ element: rendered, height: 200, width: 300 });
       expect(ChildComponent).toHaveBeenCalledTimes(1);
       expect(onResize).toHaveBeenCalledTimes(2);
       done();
@@ -232,15 +233,15 @@ describe('AutoSizer', () => {
             height: 100,
             onResize,
             width: 200,
-          }),
-        ),
+          })
+        )
       );
       ChildComponent.mockClear(); // TODO Improve initial check in version 10; see AutoSizer render()
       expect(onResize).toHaveBeenCalledTimes(1);
-      await simulateResize({element: rendered, height: 200, width: 200});
+      await simulateResize({ element: rendered, height: 200, width: 200 });
       expect(ChildComponent).toHaveBeenCalledTimes(0);
       expect(onResize).toHaveBeenCalledTimes(1);
-      await simulateResize({element: rendered, height: 200, width: 300});
+      await simulateResize({ element: rendered, height: 200, width: 300 });
       expect(ChildComponent).toHaveBeenCalledTimes(1);
       expect(onResize).toHaveBeenCalledTimes(2);
       done();
@@ -249,13 +250,13 @@ describe('AutoSizer', () => {
 
   describe('className and style', () => {
     it('should use a custom :className if specified', () => {
-      const rendered = findDOMNode(render(getMarkup({className: 'foo'})));
+      const rendered = findDOMNode(render(getMarkup({ className: 'foo' })));
       expect(rendered.firstChild.className).toContain('foo');
     });
 
     it('should use a custom :style if specified', () => {
-      const style = {backgroundColor: 'red'};
-      const rendered = findDOMNode(render(getMarkup({style})));
+      const style = { backgroundColor: 'red' };
+      const rendered = findDOMNode(render(getMarkup({ style })));
       expect(rendered.firstChild.style.backgroundColor).toEqual('red');
     });
   });

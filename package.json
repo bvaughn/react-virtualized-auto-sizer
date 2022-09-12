@@ -1,6 +1,6 @@
 {
   "name": "react-virtualized-auto-sizer",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description":
     "Standalone version of the AutoSizer component from react-virtualized",
   "author":
@@ -55,8 +55,8 @@
     "**/*.js": "eslint --max-warnings 0"
   },
   "peerDependencies": {
-    "react": "^15.3.0 || ^16.0.0-alpha || ^17.0.0",
-    "react-dom": "^15.3.0 || ^16.0.0-alpha || ^17.0.0"
+    "react": "^15.3.0 || ^16.0.0-alpha || ^17.0.0 || ^18.0.0-rc",
+    "react-dom": "^15.3.0 || ^16.0.0-alpha || ^17.0.0 || ^18.0.0-rc"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

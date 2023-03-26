@@ -7,7 +7,7 @@ import {
 } from "react";
 
 // @ts-ignore
-import { createDetectElementResize } from "./vendor/detectElementResize";
+import { createDetectElementResize } from "../vendor/detectElementResize";
 
 export type Size = {
   height?: number;
@@ -89,7 +89,7 @@ export class AutoSizer extends Component<Props, State> {
     }
   }
 
-  render() {
+  render(): ReactElement {
     const {
       children,
       defaultHeight,

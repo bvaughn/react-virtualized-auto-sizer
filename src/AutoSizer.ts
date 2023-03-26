@@ -1,4 +1,10 @@
-import { Component, createElement, CSSProperties, ReactElement } from "react";
+import {
+  Component,
+  createElement,
+  CSSProperties,
+  HTMLAttributes,
+  ReactElement,
+} from "react";
 
 // @ts-ignore
 import { createDetectElementResize } from "./vendor/detectElementResize";
@@ -10,16 +16,13 @@ export type Size = {
 
 export type Props = {
   children: (size: Size) => ReactElement;
-  className?: string;
   defaultHeight?: number;
   defaultWidth?: number;
   disableHeight?: boolean;
   disableWidth?: boolean;
-  id?: string;
   nonce?: string;
   onResize?: (size: Size) => void;
-  style?: CSSProperties;
-};
+} & Omit<HTMLAttributes<HTMLDivElement>, "children">;
 
 type State = {
   height: number;
@@ -87,8 +90,18 @@ export class AutoSizer extends Component<Props, State> {
   }
 
   render() {
-    const { children, className, disableHeight, disableWidth, id, style } =
-      this.props;
+    const {
+      children,
+      defaultHeight,
+      defaultWidth,
+      disableHeight,
+      disableWidth,
+      nonce,
+      onResize,
+      style,
+      ...rest
+    } = this.props;
+
     const { height, width } = this.state;
 
     // Outer div should not force width/height since that may prevent containers from shrinking.
@@ -120,13 +133,12 @@ export class AutoSizer extends Component<Props, State> {
     return createElement(
       "div",
       {
-        className,
-        id,
         ref: this._setRef,
         style: {
           ...outerStyle,
           ...style,
         },
+        ...rest,
       },
       !bailoutOnChildren && children(childParams)
     );

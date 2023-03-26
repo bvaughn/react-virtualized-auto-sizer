@@ -285,15 +285,15 @@ describe("AutoSizer", () => {
     });
   });
 
-  describe("className and style", () => {
-    it("should use a custom :className if specified", () => {
+  describe("HTML attributes", () => {
+    it("should pass along :className attribute if specified", () => {
       renderHelper({}, { className: "foo", id: "auto-sizer" });
 
       const div = container.querySelector("#auto-sizer") as HTMLDivElement;
       expect(div.className).toContain("foo");
     });
 
-    it("should use a custom :style if specified", () => {
+    it("should pass along custom :style values if specified", () => {
       renderHelper({}, { id: "auto-sizer", style: { backgroundColor: "red" } });
 
       const div = container.querySelector("#auto-sizer") as HTMLDivElement;

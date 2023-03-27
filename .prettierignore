@@ -1,5 +1,3 @@
-dist/*
-example/build/*
-example/src/code/*
-package-lock.json
-yarn.lock
+.parcel-cache
+dist
+node_modules

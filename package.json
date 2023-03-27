@@ -34,7 +34,7 @@
   ],
   "scripts": {
     "clear": "npm run clear:parcel-cache & npm run clear:builds & npm run clear:node_modules",
-    "clear:builds": "rm -rf ./packages/*/dist",
+    "clear:builds": "rm -rf ./dist",
     "clear:parcel-cache": "rm -rf ./.parcel-cache",
     "clear:node_modules": "rm -rf ./node_modules",
     "prerelease": "rm -rf ./.parcel-cache && parcel build",

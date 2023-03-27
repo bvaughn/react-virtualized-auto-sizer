@@ -24,6 +24,7 @@ npm install --save react-virtualized-auto-sizer
 | nonce         | String   |           | Nonce of the inlined stylesheets for [Content Security Policy](https://www.w3.org/TR/2016/REC-CSP2-20161215/#script-src-the-nonce-attribute)                    |
 | onResize      | Function |           | Callback to be invoked on-resize; it is passed the following named parameters: `({ height: number, width: number })`.                                           |
 | style         | Object   |           | Optional custom inline style to attach to root `AutoSizer` element. This is an advanced property and is not typically necessary.                                |
+| tagName       | string   |           | Optional HTML tag name for root element; defaults to `"div"` |
 
 ## Examples
 

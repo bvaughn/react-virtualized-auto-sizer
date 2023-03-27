@@ -81,16 +81,7 @@ describe("AutoSizer", () => {
       paddingTop = 0,
       width = 200,
     } = {},
-    {
-      className,
-      defaultHeight,
-      defaultWidth,
-      disableHeight = false,
-      disableWidth = false,
-      id,
-      onResize,
-      style,
-    }: Omit<Props, "children"> = {}
+    props: Omit<Props, "children"> = {}
   ) {
     const wrapperStyle: CSSProperties = {
       boxSizing: "border-box",
@@ -110,22 +101,13 @@ describe("AutoSizer", () => {
     act(() => {
       root.render(
         <div style={wrapperStyle}>
-          <AutoSizer
-            className={className}
-            defaultHeight={defaultHeight}
-            defaultWidth={defaultWidth}
-            disableHeight={disableHeight}
-            disableWidth={disableWidth}
-            id={id}
-            onResize={onResize}
-            style={style}
-          >
+          <AutoSizer {...props}>
             {({ height, width }) => (
               <ChildComponent
                 bar={bar}
                 foo={foo}
-                height={disableHeight ? undefined : height}
-                width={disableWidth ? undefined : width}
+                height={props.disableHeight ? undefined : height}
+                width={props.disableWidth ? undefined : width}
               />
             )}
           </AutoSizer>
@@ -289,15 +271,22 @@ describe("AutoSizer", () => {
     it("should pass along :className attribute if specified", () => {
       renderHelper({}, { className: "foo", id: "auto-sizer" });
 
-      const div = container.querySelector("#auto-sizer") as HTMLDivElement;
-      expect(div.className).toContain("foo");
+      const element = container.querySelector("#auto-sizer") as HTMLDivElement;
+      expect(element.className).toContain("foo");
     });
 
     it("should pass along custom :style values if specified", () => {
       renderHelper({}, { id: "auto-sizer", style: { backgroundColor: "red" } });
 
-      const div = container.querySelector("#auto-sizer") as HTMLDivElement;
-      expect(div.style.backgroundColor).toEqual("red");
+      const element = container.querySelector("#auto-sizer") as HTMLDivElement;
+      expect(element.style.backgroundColor).toEqual("red");
     });
+  });
+
+  it("should support a different tagName", () => {
+    renderHelper({}, { id: "auto-sizer", tagName: "span" });
+
+    const element = container.querySelector("#auto-sizer") as HTMLDivElement;
+    expect(element.tagName).toEqual("SPAN");
   });
 });

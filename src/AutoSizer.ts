@@ -22,6 +22,7 @@ export type Props = {
   disableWidth?: boolean;
   nonce?: string;
   onResize?: (size: Size) => void;
+  tagName?: string;
 } & Omit<HTMLAttributes<HTMLDivElement>, "children">;
 
 type State = {
@@ -99,6 +100,7 @@ export class AutoSizer extends Component<Props, State> {
       nonce,
       onResize,
       style,
+      tagName = "div",
       ...rest
     } = this.props;
 
@@ -131,7 +133,7 @@ export class AutoSizer extends Component<Props, State> {
     }
 
     return createElement(
-      "div",
+      tagName,
       {
         ref: this._setRef,
         style: {

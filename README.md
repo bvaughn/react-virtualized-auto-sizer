@@ -31,7 +31,7 @@ npm install --save react-virtualized-auto-sizer
 Some components (like those found in [`react-window`](https://github.com/bvaughn/react-virtualized) or [`react-window`](https://github.com/bvaughn/react-virtualized)) require numeric width and height parameters. The `AutoSizer` component can be useful if you want to pass percentage based dimensions.
 
 ```jsx
-import { AutoSizer } from "react-virtualized-auto-sizer";
+import AutoSizer from "react-virtualized-auto-sizer";
 
 // UI
 <AutoSizer>

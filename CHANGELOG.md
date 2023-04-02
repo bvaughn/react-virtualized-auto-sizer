@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.10
+* Add named exports for `AutoSizer` as well as `Props` and `Size` types.
+
 ## 1.0.9
 * Add optional `tagName` property (default to `"div"`).
 

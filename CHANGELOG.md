@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.11
+* Pre-transform static class property syntax (`defaultProps`) ([#46](https://github.com/bvaughn/react-virtualized-auto-sizer/issues/46))
+* Fixed bad TypeScript definition for `onResize` prop ([#44](https://github.com/bvaughn/react-virtualized-auto-sizer/issues/44))
+
 ## 1.0.10
 * Add named exports for `AutoSizer` as well as `Props` and `Size` types.
 

@@ -23,7 +23,7 @@ export type Props = {
   nonce?: string;
   onResize?: (size: Size) => void;
   tagName?: string;
-} & Omit<HTMLAttributes<HTMLDivElement>, "children">;
+} & Omit<HTMLAttributes<HTMLDivElement>, "children" | "onResize">;
 
 type State = {
   height: number;

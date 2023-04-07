@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.12
+* Fix regression introduced in 1.0.8 with transformations; pass unscaled width and height as "default" params (and add additional `scaledHeight` and `scaledWidth` params to `children` function)
+* Use `ResizeObserver` when possible; fallback to legacy resize polyfill logic otherwise
+
 ## 1.0.11
 * Pre-transform static class property syntax (`defaultProps`) ([#46](https://github.com/bvaughn/react-virtualized-auto-sizer/issues/46))
 * Fixed bad TypeScript definition for `onResize` prop ([#44](https://github.com/bvaughn/react-virtualized-auto-sizer/issues/44))

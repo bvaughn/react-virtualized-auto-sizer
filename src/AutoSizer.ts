@@ -10,8 +10,13 @@ import {
 import { createDetectElementResize } from "../vendor/detectElementResize";
 
 export type Size = {
+  // Legacy width and height parameters (offsetWidth and offsetHeight)
   height?: number;
   width?: number;
+
+  // Take transform:scale into account (getBoundingClientRect)
+  scaledHeight?: number;
+  scaledWidth?: number;
 };
 
 export type Props = {
@@ -27,6 +32,8 @@ export type Props = {
 
 type State = {
   height: number;
+  scaledHeight: number;
+  scaledWidth: number;
   width: number;
 };
 
@@ -47,12 +54,15 @@ export class AutoSizer extends Component<Props, State> {
 
   state = {
     height: this.props.defaultHeight || 0,
+    scaledHeight: this.props.defaultHeight || 0,
+    scaledWidth: this.props.defaultWidth || 0,
     width: this.props.defaultWidth || 0,
   };
 
-  _parentNode: HTMLElement | null = null;
   _autoSizer: HTMLElement | null = null;
   _detectElementResize: DetectElementResize | null = null;
+  _parentNode: HTMLElement | null = null;
+  _resizeObserver: ResizeObserver | null = null;
 
   componentDidMount() {
     const { nonce } = this.props;
@@ -72,21 +82,38 @@ export class AutoSizer extends Component<Props, State> {
 
       // Defer requiring resize handler in order to support server-side rendering.
       // See issue #41
-      const detectElementResize = createDetectElementResize(nonce);
-      detectElementResize.addResizeListener(this._parentNode, this._onResize);
+      if (this._parentNode != null) {
+        if (typeof ResizeObserver !== "undefined") {
+          this._resizeObserver = new ResizeObserver(this._onResize);
+          this._resizeObserver.observe(this._parentNode);
+        } else {
+          this._detectElementResize = createDetectElementResize(
+            nonce
+          ) as DetectElementResize;
+          this._detectElementResize.addResizeListener(
+            this._parentNode,
+            this._onResize
+          );
+        }
 
-      this._detectElementResize = detectElementResize;
-
-      this._onResize();
+        this._onResize();
+      }
     }
   }
 
   componentWillUnmount() {
-    if (this._detectElementResize && this._parentNode) {
-      this._detectElementResize.removeResizeListener(
-        this._parentNode,
-        this._onResize
-      );
+    if (this._parentNode) {
+      if (this._detectElementResize) {
+        this._detectElementResize.removeResizeListener(
+          this._parentNode,
+          this._onResize
+        );
+      }
+
+      if (this._resizeObserver) {
+        this._resizeObserver.observe(this._parentNode);
+        this._resizeObserver.disconnect();
+      }
     }
   }
 
@@ -104,7 +131,7 @@ export class AutoSizer extends Component<Props, State> {
       ...rest
     } = this.props;
 
-    const { height, width } = this.state;
+    const { height, scaledHeight, scaledWidth, width } = this.state;
 
     // Outer div should not force width/height since that may prevent containers from shrinking.
     // Inner component should overflow and use calculated width/height.
@@ -122,6 +149,7 @@ export class AutoSizer extends Component<Props, State> {
       }
       outerStyle.height = 0;
       childParams.height = height;
+      childParams.scaledHeight = scaledHeight;
     }
 
     if (!disableWidth) {
@@ -130,6 +158,7 @@ export class AutoSizer extends Component<Props, State> {
       }
       outerStyle.width = 0;
       childParams.width = width;
+      childParams.scaledWidth = scaledWidth;
     }
 
     return createElement(
@@ -154,30 +183,36 @@ export class AutoSizer extends Component<Props, State> {
       // This can result in invalid style values which can result in NaN values if we don't handle them.
       // See issue #150 for more context.
 
-      const rect = this._parentNode.getBoundingClientRect();
-      const height = rect.height || 0;
-      const width = rect.width || 0;
-
       const style = window.getComputedStyle(this._parentNode) || {};
-      const paddingLeft = parseInt(style.paddingLeft, 10) || 0;
-      const paddingRight = parseInt(style.paddingRight, 10) || 0;
-      const paddingTop = parseInt(style.paddingTop, 10) || 0;
-      const paddingBottom = parseInt(style.paddingBottom, 10) || 0;
+      const paddingLeft = parseInt(style.paddingLeft ?? "0", 10);
+      const paddingRight = parseInt(style.paddingRight ?? "0", 10);
+      const paddingTop = parseInt(style.paddingTop ?? "0", 10);
+      const paddingBottom = parseInt(style.paddingBottom ?? "0", 10);
 
-      const newHeight = height - paddingTop - paddingBottom;
-      const newWidth = width - paddingLeft - paddingRight;
+      const rect = this._parentNode.getBoundingClientRect();
+      const scaledHeight = rect.height - paddingTop - paddingBottom;
+      const scaledWidth = rect.width - paddingLeft - paddingRight;
+
+      const height = this._parentNode.offsetHeight - paddingTop - paddingBottom;
+      const width = this._parentNode.offsetWidth - paddingLeft - paddingRight;
 
       if (
-        (!disableHeight && this.state.height !== newHeight) ||
-        (!disableWidth && this.state.width !== newWidth)
+        (!disableHeight &&
+          (this.state.height !== height ||
+            this.state.scaledHeight !== scaledHeight)) ||
+        (!disableWidth &&
+          (this.state.width !== width ||
+            this.state.scaledWidth !== scaledWidth))
       ) {
         this.setState({
-          height: height - paddingTop - paddingBottom,
-          width: width - paddingLeft - paddingRight,
+          height,
+          width,
+          scaledHeight,
+          scaledWidth,
         });
 
         if (typeof onResize === "function") {
-          onResize({ height, width });
+          onResize({ height, scaledHeight, scaledWidth, width });
         }
       }
     }

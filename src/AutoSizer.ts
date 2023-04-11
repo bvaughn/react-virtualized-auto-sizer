@@ -84,7 +84,12 @@ export class AutoSizer extends Component<Props, State> {
       // See issue #41
       if (this._parentNode != null) {
         if (typeof ResizeObserver !== "undefined") {
-          this._resizeObserver = new ResizeObserver(this._onResize);
+          this._resizeObserver = new ResizeObserver(() => {
+            // Guard against "ResizeObserver loop limit exceeded" error;
+            // could be triggered if the state update causes the ResizeObserver handler to run long.
+            // See https://github.com/bvaughn/react-virtualized-auto-sizer/issues/55
+            setTimeout(this._onResize, 0);
+          });
           this._resizeObserver.observe(this._parentNode);
         } else {
           this._detectElementResize = createDetectElementResize(

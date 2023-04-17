@@ -2,7 +2,7 @@
 
 Standalone version of the `AutoSizer` component from [`react-virtualized`](https://github.com/bvaughn/react-virtualized).
 
-### If you like this project, [buy me a coffee](http://givebrian.coffee/).
+### If you like this project, 🎉 [become a sponsor](https://github.com/sponsors/bvaughn/) or ☕ [buy me a coffee](http://givebrian.coffee/)
 
 ## Install
 

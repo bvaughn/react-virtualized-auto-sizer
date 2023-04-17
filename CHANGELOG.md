@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.15
+* Readme changes
+
 ## 1.0.14
 * Fix potential "_ResizeObserver loop limit exceeded_" error caused by long-running renders ([#55](https://github.com/bvaughn/react-virtualized-auto-sizer/issues/55))
 

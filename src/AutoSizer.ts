@@ -4,6 +4,7 @@ import {
   CSSProperties,
   HTMLAttributes,
   ReactElement,
+  ReactNode,
 } from "react";
 
 // @ts-ignore
@@ -20,7 +21,7 @@ export type Size = {
 };
 
 export type Props = {
-  children: (size: Size) => ReactElement;
+  children: (size: Size) => ReactNode;
   defaultHeight?: number;
   defaultWidth?: number;
   disableHeight?: boolean;

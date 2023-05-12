@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.16
+* Relaxed `children` prop return type from `ReactElement` to `ReactNode`.
+
 ## 1.0.15
 * Readme changes
 

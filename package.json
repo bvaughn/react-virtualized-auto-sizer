@@ -1,6 +1,6 @@
 {
   "name": "react-virtualized-auto-sizer",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "Standalone version of the AutoSizer component from react-virtualized",
   "author": "Brian Vaughn <brian.david.vaughn@gmail.com> (https://github.com/bvaughn/)",
   "contributors": [

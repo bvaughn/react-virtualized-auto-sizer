@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.17
+* Support non-integer padding styles.
+
 ## 1.0.16
 * Relaxed `children` prop return type from `ReactElement` to `ReactNode`.
 

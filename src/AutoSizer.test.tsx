@@ -142,6 +142,18 @@ describe("AutoSizer", () => {
     expect(container.textContent).toContain("width:192");
   });
 
+  it("should account for non-integer padding values when calculating the available width and height", () => {
+    renderHelper({
+      paddingBottom: 10.5,
+      paddingLeft: 4.2,
+      paddingRight: 4.1,
+      paddingTop: 15.4,
+    });
+
+    expect(container.textContent).toContain("height:74.1");
+    expect(container.textContent).toContain("width:191.7");
+  });
+
   it("should not update :width if :disableWidth is true", () => {
     renderHelper({}, { disableWidth: true });
 

@@ -15,7 +15,7 @@ npm install --save react-virtualized-auto-sizer
 
 | Property      | Type     | Required? | Description                                                                                                                                                     |
 | :------------ | :------- | :-------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| children      | Function |     ✓     | Function responsible for rendering children. This function should implement the following signature: `({ height: number, width: number }) => PropTypes.element` |
+| children      | Function |     ✓     | Function responsible for rendering children. This function should implement the following signature: `({ height?: number | undefined, width?: number | undefined }) => PropTypes.element` |
 | className     | String   |           | Optional custom CSS class name to attach to root `AutoSizer` element. This is an advanced property and is not typically necessary.                              |
 | defaultHeight | Number   |           | Height passed to child for initial render; useful for server-side rendering. This value will be overridden with an accurate height after mounting.              |
 | defaultWidth  | Number   |           | Width passed to child for initial render; useful for server-side rendering. This value will be overridden with an accurate width after mounting.                |

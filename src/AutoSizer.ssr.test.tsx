@@ -2,9 +2,9 @@
  * @jest-environment node
  */
 
-import { createElement } from "react";
 import { renderToString } from "react-dom/server";
-import { AutoSizer, Size } from "./AutoSizer";
+import { AutoSizer } from "./AutoSizer";
+import { Size } from "./types";
 
 test("should render content with default widths and heights initially", () => {
   const rendered = renderToString(

@@ -1,35 +1,8 @@
-import {
-  Component,
-  createElement,
-  CSSProperties,
-  HTMLAttributes,
-  ReactElement,
-  ReactNode,
-} from "react";
+import { Component, createElement, CSSProperties, ReactElement } from "react";
 
 // @ts-ignore
 import { createDetectElementResize } from "../vendor/detectElementResize";
-
-export type Size = {
-  // Legacy width and height parameters (offsetWidth and offsetHeight)
-  height?: number;
-  width?: number;
-
-  // Take transform:scale into account (getBoundingClientRect)
-  scaledHeight?: number;
-  scaledWidth?: number;
-};
-
-export type Props = {
-  children: (size: Size) => ReactNode;
-  defaultHeight?: number;
-  defaultWidth?: number;
-  disableHeight?: boolean;
-  disableWidth?: boolean;
-  nonce?: string;
-  onResize?: (size: Size) => void;
-  tagName?: string;
-} & Omit<HTMLAttributes<HTMLDivElement>, "children" | "onResize">;
+import { HeightAndWidthProps, Props, Size } from "./types";
 
 type State = {
   height: number;
@@ -46,18 +19,11 @@ type DetectElementResize = {
 };
 
 export class AutoSizer extends Component<Props, State> {
-  static defaultProps = {
-    onResize: () => {},
-    disableHeight: false,
-    disableWidth: false,
-    style: {},
-  };
-
   state = {
-    height: this.props.defaultHeight || 0,
-    scaledHeight: this.props.defaultHeight || 0,
-    scaledWidth: this.props.defaultWidth || 0,
-    width: this.props.defaultWidth || 0,
+    height: (this.props as HeightAndWidthProps).defaultHeight || 0,
+    scaledHeight: (this.props as HeightAndWidthProps).defaultHeight || 0,
+    scaledWidth: (this.props as HeightAndWidthProps).defaultWidth || 0,
+    width: (this.props as HeightAndWidthProps).defaultWidth || 0,
   };
 
   _autoSizer: HTMLElement | null = null;
@@ -128,14 +94,14 @@ export class AutoSizer extends Component<Props, State> {
       children,
       defaultHeight,
       defaultWidth,
-      disableHeight,
-      disableWidth,
+      disableHeight = false,
+      disableWidth = false,
       nonce,
       onResize,
-      style,
+      style = {},
       tagName = "div",
       ...rest
-    } = this.props;
+    } = this.props as HeightAndWidthProps;
 
     const { height, scaledHeight, scaledWidth, width } = this.state;
 
@@ -143,7 +109,7 @@ export class AutoSizer extends Component<Props, State> {
     // Inner component should overflow and use calculated width/height.
     // See issue #68 for more information.
     const outerStyle: CSSProperties = { overflow: "visible" };
-    const childParams: Size = {};
+    const childParams: Partial<Size> = {};
 
     // Avoid rendering children before the initial measurements have been collected.
     // At best this would just be wasting cycles.
@@ -177,12 +143,13 @@ export class AutoSizer extends Component<Props, State> {
         },
         ...rest,
       },
-      !bailoutOnChildren && children(childParams)
+      !bailoutOnChildren && children(childParams as Size)
     );
   }
 
   _onResize = () => {
-    const { disableHeight, disableWidth, onResize } = this.props;
+    const { disableHeight, disableWidth, onResize } = this
+      .props as HeightAndWidthProps;
 
     if (this._parentNode) {
       // Guard against AutoSizer component being removed from the DOM immediately after being added.

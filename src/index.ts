@@ -1,5 +1,5 @@
-import { AutoSizer, Props, Size } from "./AutoSizer";
+import { AutoSizer } from "./AutoSizer";
 
 export default AutoSizer;
 
-export type { Props, Size };
+export * from "./types";

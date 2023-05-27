@@ -5,7 +5,15 @@
 import { CSSProperties } from "react";
 import { createRoot } from "react-dom/client";
 import { act } from "react-dom/test-utils";
-import { AutoSizer, Props } from "./AutoSizer";
+import { AutoSizer } from "./AutoSizer";
+import {
+  HeightOnlyProps,
+  Props,
+  Size,
+  WidthOnlyProps,
+  isHeightOnlyProps,
+  isWidthOnlyProps,
+} from "./types";
 
 // AutoSizer uses measurements APIs that JSDOm doesn't support.
 function mockOffsetSize(width: number, height: number) {
@@ -102,12 +110,12 @@ describe("AutoSizer", () => {
       root.render(
         <div style={wrapperStyle}>
           <AutoSizer {...props}>
-            {({ height, width }) => (
+            {({ height, width }: Size) => (
               <ChildComponent
                 bar={bar}
                 foo={foo}
-                height={props.disableHeight ? undefined : height}
-                width={props.disableWidth ? undefined : width}
+                height={isWidthOnlyProps(props) ? undefined : height}
+                width={isHeightOnlyProps(props) ? undefined : width}
               />
             )}
           </AutoSizer>
@@ -155,14 +163,14 @@ describe("AutoSizer", () => {
   });
 
   it("should not update :width if :disableWidth is true", () => {
-    renderHelper({}, { disableWidth: true });
+    renderHelper({}, { disableWidth: true } as HeightOnlyProps);
 
     expect(container.textContent).toContain("height:100");
     expect(container.textContent).toContain("width:undefined");
   });
 
   it("should not update :height if :disableHeight is true", () => {
-    renderHelper({}, { disableHeight: true });
+    renderHelper({}, { disableHeight: true } as WidthOnlyProps);
 
     expect(container.textContent).toContain("height:undefined");
     expect(container.textContent).toContain("width:200");
@@ -227,7 +235,7 @@ describe("AutoSizer", () => {
         {
           disableWidth: true,
           onResize,
-        }
+        } as Omit<HeightOnlyProps, "children">
       );
 
       ChildComponent.mockClear(); // TODO Improve initial check in version 10; see AutoSizer render()
@@ -260,7 +268,7 @@ describe("AutoSizer", () => {
         {
           disableHeight: true,
           onResize,
-        }
+        } as Omit<WidthOnlyProps, "children">
       );
 
       ChildComponent.mockClear(); // TODO Improve initial check in version 10; see AutoSizer render()

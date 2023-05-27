@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.18
+* Refine TypeScript types so that `disableHeight` and `disableWidth` are properly paired with conditional types like `children` and `onResize`.
+
 ## 1.0.17
 * Support non-integer padding styles.
 

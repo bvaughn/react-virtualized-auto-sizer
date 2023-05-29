@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.19
+* Further improved TypeScript definitions to avoid `any` types for `children` function parameters.
+* [61](https://github.com/bvaughn/react-virtualized-auto-sizer/pull/61): Build release bundle with Preconstruct.
+
 ## 1.0.18
 * Refine TypeScript types so that `disableHeight` and `disableWidth` are properly paired with conditional types like `children` and `onResize`.
 

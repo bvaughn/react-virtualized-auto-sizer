@@ -101,6 +101,8 @@ describe("AutoSizer", () => {
       width,
     };
 
+    const { disableHeight = false, disableWidth = false, ...rest } = props;
+
     mockOffsetSize(width, height);
 
     container = document.createElement("div");
@@ -109,7 +111,11 @@ describe("AutoSizer", () => {
     act(() => {
       root.render(
         <div style={wrapperStyle}>
-          <AutoSizer {...props}>
+          <AutoSizer
+            disableHeight={disableHeight as any}
+            disableWidth={disableWidth as any}
+            {...rest}
+          >
             {({ height, width }: Size) => (
               <ChildComponent
                 bar={bar}

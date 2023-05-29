@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "esModuleInterop": true,
     "lib": ["DOM", "ES2015"],
     "module": "es2020",
     "moduleResolution": "node",
@@ -12,6 +11,6 @@
     "typeRoots": ["node_modules/@types"],
     "types": ["jest"]
   },
-  "exclude": ["node_modules", "vendor"],
+  "exclude": ["node_modules"],
   "include": ["src"]
 }

@@ -1,7 +1,9 @@
 import { Component, createElement, CSSProperties, ReactElement } from "react";
 
-// @ts-ignore
-import { createDetectElementResize } from "../vendor/detectElementResize";
+import {
+  createDetectElementResize,
+  DetectElementResize,
+} from "./vendor/detectElementResize";
 import { HeightAndWidthProps, Props, Size } from "./types";
 
 type State = {
@@ -9,13 +11,6 @@ type State = {
   scaledHeight: number;
   scaledWidth: number;
   width: number;
-};
-
-type ResizeHandler = (element: HTMLElement, onResize: () => void) => void;
-
-type DetectElementResize = {
-  addResizeListener: ResizeHandler;
-  removeResizeListener: ResizeHandler;
 };
 
 export class AutoSizer extends Component<Props, State> {
@@ -59,9 +54,7 @@ export class AutoSizer extends Component<Props, State> {
           });
           this._resizeObserver.observe(this._parentNode);
         } else {
-          this._detectElementResize = createDetectElementResize(
-            nonce
-          ) as DetectElementResize;
+          this._detectElementResize = createDetectElementResize(nonce);
           this._detectElementResize.addResizeListener(
             this._parentNode,
             this._onResize

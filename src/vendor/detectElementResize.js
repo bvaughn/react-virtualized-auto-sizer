@@ -8,6 +8,7 @@
  * 2) Defer initialization code via a top-level function wrapper (to support SSR).
  * 3) Avoid unnecessary reflows by not measuring size for scroll events bubbling from children.
  * 4) Add nonce for style element.
+ * 5) Use 'export' statement over 'module.exports' assignment
  **/
 
 // Check `document` and `window` in case of server-side rendering
@@ -281,4 +282,4 @@ function createDetectElementResize(nonce) {
   };
 }
 
-module.exports = { createDetectElementResize };
+export { createDetectElementResize };

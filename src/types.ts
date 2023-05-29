@@ -18,6 +18,7 @@ type BaseProps = {
 export type HeightOnlyProps = BaseProps & {
   children: (size: VerticalSize) => ReactNode;
   defaultHeight?: number;
+  disableHeight?: false;
   disableWidth: true;
   onResize?: (size: VerticalSize) => void;
 };
@@ -26,6 +27,7 @@ export type WidthOnlyProps = BaseProps & {
   children: (size: HorizontalSize) => ReactNode;
   defaultWidth?: number;
   disableHeight: true;
+  disableWidth?: false;
   onResize?: (size: HorizontalSize) => void;
 };
 

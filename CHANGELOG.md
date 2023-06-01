@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.20
+* Guard against potential state update after unmount (caused by `setTimeout` when using `ResizeObserver`)
+
 ## 1.0.19
 * Further improved TypeScript definitions to avoid `any` types for `children` function parameters.
 * [61](https://github.com/bvaughn/react-virtualized-auto-sizer/pull/61): Build release bundle with Preconstruct.

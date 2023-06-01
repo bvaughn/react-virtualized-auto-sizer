@@ -25,6 +25,7 @@ export class AutoSizer extends Component<Props, State> {
   _detectElementResize: DetectElementResize | null = null;
   _parentNode: HTMLElement | null = null;
   _resizeObserver: ResizeObserver | null = null;
+  _timeoutId: number | null = null;
 
   componentDidMount() {
     const { nonce } = this.props;
@@ -50,7 +51,7 @@ export class AutoSizer extends Component<Props, State> {
             // Guard against "ResizeObserver loop limit exceeded" error;
             // could be triggered if the state update causes the ResizeObserver handler to run long.
             // See https://github.com/bvaughn/react-virtualized-auto-sizer/issues/55
-            setTimeout(this._onResize, 0);
+            this._timeoutId = setTimeout(this._onResize, 0);
           });
           this._resizeObserver.observe(this._parentNode);
         } else {
@@ -73,6 +74,10 @@ export class AutoSizer extends Component<Props, State> {
           this._parentNode,
           this._onResize
         );
+      }
+
+      if (this._timeoutId !== null) {
+        clearTimeout(this._timeoutId);
       }
 
       if (this._resizeObserver) {
@@ -141,6 +146,8 @@ export class AutoSizer extends Component<Props, State> {
   }
 
   _onResize = () => {
+    this._timeoutId = null;
+
     const { disableHeight, disableWidth, onResize } = this
       .props as HeightAndWidthProps;
 

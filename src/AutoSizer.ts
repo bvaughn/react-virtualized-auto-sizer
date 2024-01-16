@@ -1,4 +1,4 @@
-import { Component, createElement, CSSProperties, ReactElement } from "react";
+import { Component, createElement, CSSProperties, ReactNode } from "react";
 
 import {
   createDetectElementResize,
@@ -87,7 +87,7 @@ export class AutoSizer extends Component<Props, State> {
     }
   }
 
-  render(): ReactElement {
+  render(): ReactNode {
     const {
       children,
       defaultHeight,

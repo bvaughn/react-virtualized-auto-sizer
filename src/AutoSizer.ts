@@ -157,10 +157,10 @@ export class AutoSizer extends Component<Props, State> {
       // See issue #150 for more context.
 
       const style = window.getComputedStyle(this._parentNode) || {};
-      const paddingLeft = parseFloat(style.paddingLeft ?? "0");
-      const paddingRight = parseFloat(style.paddingRight ?? "0");
-      const paddingTop = parseFloat(style.paddingTop ?? "0");
-      const paddingBottom = parseFloat(style.paddingBottom ?? "0");
+      const paddingLeft = parseFloat(style.paddingLeft || "0");
+      const paddingRight = parseFloat(style.paddingRight || "0");
+      const paddingTop = parseFloat(style.paddingTop || "0");
+      const paddingBottom = parseFloat(style.paddingBottom || "0");
 
       const rect = this._parentNode.getBoundingClientRect();
       const scaledHeight = rect.height - paddingTop - paddingBottom;

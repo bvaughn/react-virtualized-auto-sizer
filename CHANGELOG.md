@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.22
+
+- Bugfix: Treat empty-string padding values as 0
+
 ## 1.0.21
 
 - TypeScript change only; `AutoSizer` return type changed from `ReactElement` to `ReactNode`

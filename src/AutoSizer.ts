@@ -81,7 +81,6 @@ export class AutoSizer extends Component<Props, State> {
       }
 
       if (this._resizeObserver) {
-        this._resizeObserver.observe(this._parentNode);
         this._resizeObserver.disconnect();
       }
     }

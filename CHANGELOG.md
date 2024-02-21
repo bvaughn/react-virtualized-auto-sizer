@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.23
+
+- Bugfix: Use ResizeObserver global from parentNode realm to support case with multiple realms (#82)
+
 ## 1.0.22
 
 - Bugfix: Treat empty-string padding values as 0

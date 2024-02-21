@@ -29,41 +29,40 @@ export class AutoSizer extends Component<Props, State> {
 
   componentDidMount() {
     const { nonce } = this.props;
+    const parentNode = this._autoSizer ? this._autoSizer.parentNode : null;
 
     if (
-      this._autoSizer &&
-      this._autoSizer.parentNode &&
-      this._autoSizer.parentNode.ownerDocument &&
-      this._autoSizer.parentNode.ownerDocument.defaultView &&
-      this._autoSizer.parentNode instanceof
-        this._autoSizer.parentNode.ownerDocument.defaultView.HTMLElement
+      parentNode != null &&
+      parentNode.ownerDocument &&
+      parentNode.ownerDocument.defaultView &&
+      parentNode instanceof parentNode.ownerDocument.defaultView.HTMLElement
     ) {
       // Delay access of parentNode until mount.
       // This handles edge-cases where the component has already been unmounted before its ref has been set,
       // As well as libraries like react-lite which have a slightly different lifecycle.
-      this._parentNode = this._autoSizer.parentNode;
+      this._parentNode = parentNode;
 
-      // Defer requiring resize handler in order to support server-side rendering.
-      // See issue #41
-      if (this._parentNode != null) {
-        if (typeof ResizeObserver !== "undefined") {
-          this._resizeObserver = new ResizeObserver(() => {
-            // Guard against "ResizeObserver loop limit exceeded" error;
-            // could be triggered if the state update causes the ResizeObserver handler to run long.
-            // See https://github.com/bvaughn/react-virtualized-auto-sizer/issues/55
-            this._timeoutId = setTimeout(this._onResize, 0);
-          });
-          this._resizeObserver.observe(this._parentNode);
-        } else {
-          this._detectElementResize = createDetectElementResize(nonce);
-          this._detectElementResize.addResizeListener(
-            this._parentNode,
-            this._onResize
-          );
-        }
+      // Use ResizeObserver from the same context where parentNode (which we will observe) was defined
+      // Using just global can result into onResize events not being emitted in cases with multiple realms
+      const ResizeObserverInstance =
+        parentNode.ownerDocument.defaultView.ResizeObserver;
 
-        this._onResize();
+      if (ResizeObserverInstance != null) {
+        this._resizeObserver = new ResizeObserverInstance(() => {
+          // Guard against "ResizeObserver loop limit exceeded" error;
+          // could be triggered if the state update causes the ResizeObserver handler to run long.
+          // See https://github.com/bvaughn/react-virtualized-auto-sizer/issues/55
+          this._timeoutId = setTimeout(this._onResize, 0);
+        });
+        this._resizeObserver.observe(parentNode);
+      } else {
+        // Defer requiring resize handler in order to support server-side rendering.
+        // See issue #41
+        this._detectElementResize = createDetectElementResize(nonce);
+        this._detectElementResize.addResizeListener(parentNode, this._onResize);
       }
+
+      this._onResize();
     }
   }
 

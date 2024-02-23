@@ -88,6 +88,7 @@ describe("AutoSizer", () => {
       paddingRight = 0,
       paddingTop = 0,
       width = 200,
+      excludeWrapperStyling = false,
     } = {},
     props: Omit<Props, "children"> = {}
   ) {
@@ -110,7 +111,7 @@ describe("AutoSizer", () => {
     const root = createRoot(container);
     act(() => {
       root.render(
-        <div style={wrapperStyle}>
+        <div style={!excludeWrapperStyling ? wrapperStyle : undefined}>
           <AutoSizer
             disableHeight={disableHeight as any}
             disableWidth={disableWidth as any}
@@ -142,6 +143,18 @@ describe("AutoSizer", () => {
 
     expect(container.textContent).toContain("height:100");
     expect(container.textContent).toContain("width:200");
+  });
+
+  it("should not render children for elements with empty computed styles", () => {
+    mockOffsetSize(0, 0);
+
+    renderHelper({
+      excludeWrapperStyling: true,
+      height: 0,
+      width: 0,
+    });
+
+    expect(container.textContent).toEqual("");
   });
 
   it("should account for padding when calculating the available width and height", () => {

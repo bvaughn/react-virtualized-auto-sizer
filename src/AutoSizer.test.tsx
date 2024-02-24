@@ -81,6 +81,7 @@ describe("AutoSizer", () => {
     {
       bar = 123,
       ChildComponent = DefaultChildComponent,
+      excludeWrapperStyling = false,
       foo = 456,
       height = 100,
       paddingBottom = 0,
@@ -88,7 +89,6 @@ describe("AutoSizer", () => {
       paddingRight = 0,
       paddingTop = 0,
       width = 200,
-      excludeWrapperStyling = false,
     } = {},
     props: Omit<Props, "children"> = {}
   ) {
@@ -111,7 +111,7 @@ describe("AutoSizer", () => {
     const root = createRoot(container);
     act(() => {
       root.render(
-        <div style={!excludeWrapperStyling ? wrapperStyle : undefined}>
+        <div style={excludeWrapperStyling ? undefined : wrapperStyle}>
           <AutoSizer
             disableHeight={disableHeight as any}
             disableWidth={disableWidth as any}

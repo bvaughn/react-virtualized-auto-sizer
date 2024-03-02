@@ -320,6 +320,13 @@ describe("AutoSizer", () => {
       const element = container.querySelector("#auto-sizer") as HTMLDivElement;
       expect(element.style.backgroundColor).toEqual("red");
     });
+
+    it("should support arbitrary HTML attributes like role", () => {
+      renderHelper({}, { id: "auto-sizer", role: "none" });
+
+      const element = container.querySelector("#auto-sizer") as HTMLDivElement;
+      expect(element.getAttribute("role")).toEqual("none");
+    });
   });
 
   it("should support a different tagName", () => {

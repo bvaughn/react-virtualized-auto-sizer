@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.24
+
+- Add optional `doNotBailOutOnEmptyChildren` prop to `AutoSizer` to override default behavior of not rendering children when either width or height are 0
+
 ## 1.0.23
 
 - Bugfix: Use ResizeObserver global from parentNode realm to support case with multiple realms (#82)

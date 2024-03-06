@@ -21,6 +21,7 @@ npm install --save react-virtualized-auto-sizer
 | defaultWidth  | Number   |           | Width passed to child for initial render; useful for server-side rendering. This value will be overridden with an accurate width after mounting.                |
 | disableHeight | Boolean  |           | Fixed `height`; if specified, the child's `height` property will not be managed                                                                                 |
 | disableWidth  | Boolean  |           | Fixed `width`; if specified, the child's `width` property will not be managed                                                                                   |
+| doNotBailOutOnEmptyChildren | boolean | | Optional propr that can override default behavior of not rendering children when either `width` or `height` are 0 |
 | nonce         | String   |           | Nonce of the inlined stylesheets for [Content Security Policy](https://www.w3.org/TR/2016/REC-CSP2-20161215/#script-src-the-nonce-attribute)                    |
 | onResize      | Function |           | Callback to be invoked on-resize; it is passed the following named parameters: `({ height: number, width: number })`.                                           |
 | style         | Object   |           | Optional custom inline style to attach to root `AutoSizer` element. This is an advanced property and is not typically necessary.                                |

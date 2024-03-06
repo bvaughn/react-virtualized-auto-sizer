@@ -92,6 +92,7 @@ export class AutoSizer extends Component<Props, State> {
       defaultWidth,
       disableHeight = false,
       disableWidth = false,
+      doNotBailOutOnEmptyChildren = false,
       nonce,
       onResize,
       style = {},
@@ -127,6 +128,10 @@ export class AutoSizer extends Component<Props, State> {
       outerStyle.width = 0;
       childParams.width = width;
       childParams.scaledWidth = scaledWidth;
+    }
+
+    if (doNotBailOutOnEmptyChildren) {
+      bailoutOnChildren = false;
     }
 
     return createElement(

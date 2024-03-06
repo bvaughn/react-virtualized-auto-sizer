@@ -102,7 +102,12 @@ describe("AutoSizer", () => {
       width,
     };
 
-    const { disableHeight = false, disableWidth = false, ...rest } = props;
+    const {
+      disableHeight = false,
+      disableWidth = false,
+      doNotBailOutOnEmptyChildren,
+      ...rest
+    } = props;
 
     mockOffsetSize(width, height);
 
@@ -115,6 +120,7 @@ describe("AutoSizer", () => {
           <AutoSizer
             disableHeight={disableHeight as any}
             disableWidth={disableWidth as any}
+            doNotBailOutOnEmptyChildren={doNotBailOutOnEmptyChildren}
             {...rest}
           >
             {({ height, width }: Size) => (
@@ -145,16 +151,59 @@ describe("AutoSizer", () => {
     expect(container.textContent).toContain("width:200");
   });
 
-  it("should not render children for elements with empty computed styles", () => {
-    mockOffsetSize(0, 0);
-
+  it("should not render children for elements that occupy no space in the DOM", () => {
     renderHelper({
       excludeWrapperStyling: true,
       height: 0,
       width: 0,
     });
-
     expect(container.textContent).toEqual("");
+
+    renderHelper({
+      excludeWrapperStyling: true,
+      height: 100,
+      width: 0,
+    });
+    expect(container.textContent).toEqual("");
+
+    renderHelper({
+      excludeWrapperStyling: true,
+      height: 0,
+      width: 100,
+    });
+    expect(container.textContent).toEqual("");
+  });
+
+  it("should render children for elements that occupy no space in the DOM if requested", () => {
+    renderHelper(
+      {
+        excludeWrapperStyling: true,
+        height: 0,
+        width: 0,
+      },
+      { doNotBailOutOnEmptyChildren: true }
+    );
+    expect(container.textContent).toBe("width:0, height:0, foo:456, bar:123");
+
+    renderHelper(
+      {
+        excludeWrapperStyling: true,
+        height: 100,
+        width: 0,
+      },
+      { doNotBailOutOnEmptyChildren: true }
+    );
+    expect(container.textContent).toBe("width:0, height:100, foo:456, bar:123");
+
+    renderHelper(
+      {
+        excludeWrapperStyling: true,
+        height: 0,
+        width: 100,
+      },
+      { doNotBailOutOnEmptyChildren: true }
+    );
+    expect(container.textContent).toBe("width:100, height:0, foo:456, bar:123");
   });
 
   it("should account for padding when calculating the available width and height", () => {

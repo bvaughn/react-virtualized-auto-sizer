@@ -11,6 +11,7 @@ export type VerticalSize = {
 export type Size = HorizontalSize & VerticalSize;
 
 type BaseProps = {
+  doNotBailOutOnEmptyChildren?: boolean;
   nonce?: string;
   tagName?: string;
 } & Omit<HTMLAttributes<HTMLDivElement>, "children" | "onResize">;

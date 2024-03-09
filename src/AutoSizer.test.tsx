@@ -105,7 +105,7 @@ describe("AutoSizer", () => {
     const {
       disableHeight = false,
       disableWidth = false,
-      doNotBailOutOnEmptyChildren,
+      bailoutOnEmptyChildren,
       ...rest
     } = props;
 
@@ -120,7 +120,7 @@ describe("AutoSizer", () => {
           <AutoSizer
             disableHeight={disableHeight as any}
             disableWidth={disableWidth as any}
-            doNotBailOutOnEmptyChildren={doNotBailOutOnEmptyChildren}
+            bailoutOnEmptyChildren={bailoutOnEmptyChildren}
             {...rest}
           >
             {({ height, width }: Size) => (
@@ -181,7 +181,7 @@ describe("AutoSizer", () => {
         height: 0,
         width: 0,
       },
-      { doNotBailOutOnEmptyChildren: true }
+      { bailoutOnEmptyChildren: false }
     );
     expect(container.textContent).toBe("width:0, height:0, foo:456, bar:123");
 
@@ -191,7 +191,7 @@ describe("AutoSizer", () => {
         height: 100,
         width: 0,
       },
-      { doNotBailOutOnEmptyChildren: true }
+      { bailoutOnEmptyChildren: false }
     );
     expect(container.textContent).toBe("width:0, height:100, foo:456, bar:123");
 
@@ -201,7 +201,7 @@ describe("AutoSizer", () => {
         height: 0,
         width: 100,
       },
-      { doNotBailOutOnEmptyChildren: true }
+      { bailoutOnEmptyChildren: false }
     );
     expect(container.textContent).toBe("width:100, height:0, foo:456, bar:123");
   });

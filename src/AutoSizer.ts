@@ -92,7 +92,7 @@ export class AutoSizer extends Component<Props, State> {
       defaultWidth,
       disableHeight = false,
       disableWidth = false,
-      doNotBailOutOnEmptyChildren = false,
+      bailoutOnEmptyChildren = true,
       nonce,
       onResize,
       style = {},
@@ -113,7 +113,7 @@ export class AutoSizer extends Component<Props, State> {
     let bailoutOnChildren = false;
 
     if (!disableHeight) {
-      if (height === 0) {
+      if (height === 0 && bailoutOnEmptyChildren) {
         bailoutOnChildren = true;
       }
       outerStyle.height = 0;
@@ -122,16 +122,12 @@ export class AutoSizer extends Component<Props, State> {
     }
 
     if (!disableWidth) {
-      if (width === 0) {
+      if (width === 0 && bailoutOnEmptyChildren) {
         bailoutOnChildren = true;
       }
       outerStyle.width = 0;
       childParams.width = width;
       childParams.scaledWidth = scaledWidth;
-    }
-
-    if (doNotBailOutOnEmptyChildren) {
-      bailoutOnChildren = false;
     }
 
     return createElement(

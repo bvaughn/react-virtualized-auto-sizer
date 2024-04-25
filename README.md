@@ -36,9 +36,9 @@ import AutoSizer from "react-virtualized-auto-sizer";
 
 // UI
 <AutoSizer>
-  {({ height, width }) => {
+  {({ height, width }) => (
     // Use these actual sizes to calculate your percentage based sizes
-  }}
+  )}
 </AutoSizer>;
 ```
 

@@ -80,6 +80,9 @@ export class AutoSizer extends Component<Props, State> {
       }
 
       if (this._resizeObserver) {
+        if (this._parentNode.ownerDocument.defaultView!.ResizeObserver) {
+          this._resizeObserver.unobserve(this._parentNode);
+        }
         this._resizeObserver.disconnect();
       }
     }

@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.0.25
+* Dependencies updated to include React 19
+
+
 ## 1.0.24
 
 - Add optional `doNotBailOutOnEmptyChildren` prop to `AutoSizer` to override default behavior of not rendering children when either width or height are 0

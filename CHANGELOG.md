@@ -1,8 +1,8 @@
 # Changelog
 
-### 1.0.25
-* Dependencies updated to include React 19
+## 1.0.25
 
+- Dependencies updated to include React 19
 
 ## 1.0.24
 

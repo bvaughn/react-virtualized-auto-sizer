@@ -8,16 +8,12 @@ import { HeightAndWidthProps, Props, Size } from "./types";
 
 type State = {
   height: number;
-  scaledHeight: number;
-  scaledWidth: number;
   width: number;
 };
 
 export class AutoSizer extends Component<Props, State> {
   state = {
     height: (this.props as HeightAndWidthProps).defaultHeight || 0,
-    scaledHeight: (this.props as HeightAndWidthProps).defaultHeight || 0,
-    scaledWidth: (this.props as HeightAndWidthProps).defaultWidth || 0,
     width: (this.props as HeightAndWidthProps).defaultWidth || 0,
   };
 
@@ -100,7 +96,7 @@ export class AutoSizer extends Component<Props, State> {
       ...rest
     } = this.props as HeightAndWidthProps;
 
-    const { height, scaledHeight, scaledWidth, width } = this.state;
+    const { height, width } = this.state;
 
     // Outer div should not force width/height since that may prevent containers from shrinking.
     // Inner component should overflow and use calculated width/height.
@@ -118,7 +114,9 @@ export class AutoSizer extends Component<Props, State> {
       }
       outerStyle.height = 0;
       childParams.height = height;
-      childParams.scaledHeight = scaledHeight;
+
+      // TODO Remove this in the next major release
+      childParams.scaledHeight = height;
     }
 
     if (!disableWidth) {
@@ -127,7 +125,9 @@ export class AutoSizer extends Component<Props, State> {
       }
       outerStyle.width = 0;
       childParams.width = width;
-      childParams.scaledWidth = scaledWidth;
+
+      // TODO Remove this in the next major release
+      childParams.scaledWidth = width;
     }
 
     if (doNotBailOutOnEmptyChildren) {
@@ -166,29 +166,27 @@ export class AutoSizer extends Component<Props, State> {
       const paddingBottom = parseFloat(style.paddingBottom || "0");
 
       const rect = this._parentNode.getBoundingClientRect();
-      const scaledHeight = rect.height - paddingTop - paddingBottom;
-      const scaledWidth = rect.width - paddingLeft - paddingRight;
-
-      const height = this._parentNode.offsetHeight - paddingTop - paddingBottom;
-      const width = this._parentNode.offsetWidth - paddingLeft - paddingRight;
+      const height = rect.height - paddingTop - paddingBottom;
+      const width = rect.width - paddingLeft - paddingRight;
 
       if (
-        (!disableHeight &&
-          (this.state.height !== height ||
-            this.state.scaledHeight !== scaledHeight)) ||
-        (!disableWidth &&
-          (this.state.width !== width ||
-            this.state.scaledWidth !== scaledWidth))
+        (!disableHeight && this.state.height !== height) ||
+        (!disableWidth && this.state.width !== width)
       ) {
         this.setState({
           height,
           width,
-          scaledHeight,
-          scaledWidth,
         });
 
         if (typeof onResize === "function") {
-          onResize({ height, scaledHeight, scaledWidth, width });
+          onResize({
+            height,
+            width,
+
+            // TODO Remove these params in the next major release
+            scaledHeight: height,
+            scaledWidth: width,
+          });
         }
       }
     }

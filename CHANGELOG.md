@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.26
+
+- Changed `width` and `height` values to be based om `getBoundingClientRect` rather than `offsetWidth` and `offsetHeight` ([which are integers](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetWidth#value) and can cause rounding/flickering problems in some cases).
+
 ## 1.0.25
 
 - Dependencies updated to include React 19

@@ -19,6 +19,7 @@ export class AutoSizer extends Component<Props, State> {
 
   _autoSizer: HTMLElement | null = null;
   _detectElementResize: DetectElementResize | null = null;
+  _didLogDeprecationWarning = false;
   _parentNode: HTMLElement | null = null;
   _resizeObserver: ResizeObserver | null = null;
   _timeoutId: number | null = null;
@@ -178,14 +179,30 @@ export class AutoSizer extends Component<Props, State> {
           width,
         });
 
+        const maybeLogDeprecationWarning = () => {
+          if (!this._didLogDeprecationWarning) {
+            this._didLogDeprecationWarning = true;
+
+            console.warn(
+              "scaledWidth and scaledHeight parameters have been deprecated; use width and height instead"
+            );
+          }
+        };
+
         if (typeof onResize === "function") {
           onResize({
             height,
             width,
 
             // TODO Remove these params in the next major release
-            scaledHeight: height,
-            scaledWidth: width,
+            get scaledHeight() {
+              maybeLogDeprecationWarning();
+              return height;
+            },
+            get scaledWidth() {
+              maybeLogDeprecationWarning();
+              return width;
+            },
           });
         }
       }

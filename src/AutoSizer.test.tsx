@@ -75,6 +75,8 @@ describe("AutoSizer", () => {
   beforeEach(() => {
     // @ts-ignore
     global.IS_REACT_ACT_ENVIRONMENT = true;
+
+    jest.resetAllMocks();
   });
 
   function renderHelper(
@@ -352,6 +354,81 @@ describe("AutoSizer", () => {
 
       expect(ChildComponent).toHaveBeenCalledTimes(1);
       expect(onResize).toHaveBeenCalledTimes(2);
+    });
+
+    it("should warn if deprecated scaledHeight accessor is used", async () => {
+      const consoleWarnSpy = jest
+        .spyOn(console, "warn")
+        .mockImplementation(() => {});
+
+      // Destructure syntax should warn too
+      const onResize = jest.fn(({ height, scaledHeight }) => {
+        expect(consoleWarnSpy).toHaveBeenCalledTimes(1);
+        expect(consoleWarnSpy).toHaveBeenCalledWith(
+          "scaledWidth and scaledHeight parameters have been deprecated; use width and height instead"
+        );
+
+        expect(height).toBe(100.5);
+        expect(scaledHeight).toBe(100.5);
+      });
+
+      const ChildComponent = jest
+        .fn()
+        .mockImplementation(DefaultChildComponent);
+
+      renderHelper(
+        {
+          ChildComponent,
+          height: 100.5,
+          width: 200.5,
+        },
+        {
+          disableHeight: true,
+          onResize,
+        }
+      );
+
+      expect(onResize).toHaveBeenCalledTimes(1);
+    });
+
+    it("should warn if deprecated scaledWidth accessor is used", async () => {
+      const consoleWarnSpy = jest
+        .spyOn(console, "warn")
+        .mockImplementation(() => {});
+
+      const onResize = jest.fn((params) => {
+        expect(params.width).toBe(200.5);
+        expect(consoleWarnSpy).not.toHaveBeenCalled();
+
+        // Should be called when first accessed
+        expect(params.scaledWidth).toBe(200.5);
+        expect(consoleWarnSpy).toHaveBeenCalledTimes(1);
+        expect(consoleWarnSpy).toHaveBeenCalledWith(
+          "scaledWidth and scaledHeight parameters have been deprecated; use width and height instead"
+        );
+
+        // Should not be called again
+        expect(params.scaledWidth).toBe(200.5);
+        expect(consoleWarnSpy).toHaveBeenCalledTimes(1);
+      });
+
+      const ChildComponent = jest
+        .fn()
+        .mockImplementation(DefaultChildComponent);
+
+      renderHelper(
+        {
+          ChildComponent,
+          height: 100.5,
+          width: 200.5,
+        },
+        {
+          disableHeight: true,
+          onResize,
+        }
+      );
+
+      expect(onResize).toHaveBeenCalledTimes(1);
     });
   });
 

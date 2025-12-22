@@ -1,3 +1,6 @@
-dist
-node_modules
-.trunk
+/dist
+/docs
+/generated
+/public
+
+integrations/next/.next

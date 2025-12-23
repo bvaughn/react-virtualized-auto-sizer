@@ -39,7 +39,7 @@ export default function App() {
               to="/"
             />
             <div className="hidden md:block text-black text-shadow-white/50 text-shadow-xs">
-              <u>flex</u>ible layout components
+              a portable ResizeObserver alternative
             </div>
           </Box>
           <Box align="center" direction="row" gap={4}>

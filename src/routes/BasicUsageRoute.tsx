@@ -8,8 +8,9 @@ export default function BasicUsageRoute() {
     <Box direction="column" gap={4}>
       <Header section="Examples" title="Basic usage" />
       <div>
-        This component measures the available width and height and passes those
-        values to a <code>render</code> function:
+        Measures the available width and height of its parent and passes those
+        values to a child component in the form of <code>width</code> and{" "}
+        <code>height</code> props.
       </div>
       <Code html={BasicUsageExampleMarkdown.html} />
     </Box>

@@ -1,10 +1,10 @@
-import { createElement, useState } from "react";
+import { createElement, memo, useMemo, useState } from "react";
 import { useSize } from "../hooks/useSize";
 import type { Size } from "../types";
-import type { Props } from "./types";
+import type { AutoSizerProps } from "./types";
 
 /**
- * Decorates a render prop child and passes it `width` and `height` information.
+ * Measures the available width and height of its parent and passes those values to a child component in the form of `width` and `height` props.
  *
  * ℹ️ This component began as a fork of the [javascript-detect-element-resize](https://www.npmjs.com/package/javascript-detect-element-resize) package.
  */
@@ -14,7 +14,7 @@ export function AutoSizer({
   onResize,
   tagName: TagName = "div",
   ...rest
-}: Props) {
+}: AutoSizerProps) {
   const [element, setElement] = useState<HTMLElement | null>(null);
   const [size, setSize] = useState<Partial<Size>>({});
 
@@ -30,9 +30,14 @@ export function AutoSizer({
     rootElement: element
   });
 
+  const MemoizedChildren = useMemo(
+    () => (Children ? memo(Children) : undefined),
+    [Children]
+  );
+
   return createElement(
     TagName,
     { "data-auto-sizer": "", ref: setElement, ...rest },
-    Children ? createElement(Children, size) : undefined
+    MemoizedChildren ? createElement(MemoizedChildren, size) : undefined
   );
 }

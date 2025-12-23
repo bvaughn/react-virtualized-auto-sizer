@@ -8,6 +8,17 @@ describe("AutoSizer", () => {
     vi.resetAllMocks();
   });
 
+  it("should call children with undefined size values during the initial render", async () => {
+    const Children = vi.fn(() => null);
+    const onResize = vi.fn();
+
+    renderForTest(<AutoSizer children={Children} onResize={onResize} />);
+
+    expect(Children).toHaveBeenCalledTimes(1);
+    expect(Children).toHaveBeenCalledWith({}, undefined);
+    expect(onResize).not.toHaveBeenCalled();
+  });
+
   it("should pass children width and height once mounted", async () => {
     const Children = vi.fn(() => null);
     const onResize = vi.fn();
@@ -17,11 +28,9 @@ describe("AutoSizer", () => {
     );
 
     expect(Children).toHaveBeenCalled();
-    expect(Children).toHaveBeenCalledWith({}, undefined);
+    expect(onResize).not.toHaveBeenCalled();
 
     Children.mockReset();
-
-    expect(onResize).not.toHaveBeenCalled();
 
     await simulateResize({
       element: container,

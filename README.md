@@ -13,7 +13,7 @@ npm install --save react-virtualized-auto-sizer
 ### AutoSizer
 
 <!-- AutoSizer:description:begin -->
-Decorates a render prop child and passes it `width` and `height` information.
+Measures the available width and height of its parent and passes those values to a child component in the form of `width` and `height` props.
 
 ℹ️ This component began as a fork of the [javascript-detect-element-resize](https://www.npmjs.com/package/javascript-detect-element-resize) package.
 <!-- AutoSizer:description:end -->

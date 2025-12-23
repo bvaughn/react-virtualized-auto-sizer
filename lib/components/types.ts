@@ -1,6 +1,6 @@
 import type { FunctionComponent, HTMLAttributes } from "react";
 
-export type ChildrenProps =
+export type AutoSizerChildrenProps =
   | {
       height: number;
       width: number;
@@ -10,13 +10,13 @@ export type ChildrenProps =
       width: undefined;
     };
 
-export type Props = Omit<HTMLAttributes<HTMLElement>, "children"> & {
+export type AutoSizerProps = Omit<HTMLAttributes<HTMLElement>, "children"> & {
   /**
    * Child component to be passed the available width and height values as props.
    *
    * ℹ️ Width and height are undefined during the during the initial render (including server-rendering)
    */
-  children?: FunctionComponent<ChildrenProps> | undefined;
+  children?: FunctionComponent<AutoSizerChildrenProps> | undefined;
 
   /**
    * [Nonce](https://www.w3.org/TR/2016/REC-CSP2-20161215/#script-src-the-nonce-attribute) used for inline `StyleSheet`

@@ -1,7 +1,7 @@
 {
   "description": [
     {
-      "content": "<p>Decorates a render prop child and passes it <code>width</code> and <code>height</code> information.</p>\n"
+      "content": "<p>Measures the available width and height of its parent and passes those values to a child component in the form of <code>width</code> and <code>height</code> props.</p>\n"
     },
     {
       "content": "<p>This component began as a fork of the <a href=\"https://www.npmjs.com/package/javascript-detect-element-resize\">javascript-detect-element-resize</a> package.</p>\n",

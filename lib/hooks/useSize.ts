@@ -14,9 +14,19 @@ export function useSize({
   const stableValuesRef = useRef<{
     onResize: (size: Size) => void;
     parentNode: HTMLElement | null;
+    prevSize:
+      | Size
+      | {
+          height: undefined;
+          width: undefined;
+        };
   }>({
     onResize,
-    parentNode: null
+    parentNode: null,
+    prevSize: {
+      height: undefined,
+      width: undefined
+    }
   });
 
   useLayoutEffect(() => {
@@ -24,7 +34,7 @@ export function useSize({
   });
 
   const onResizeStableRef = useRef(() => {
-    const { onResize, parentNode } = stableValuesRef.current;
+    const { onResize, parentNode, prevSize } = stableValuesRef.current;
     if (parentNode === null) {
       return;
     }
@@ -41,10 +51,18 @@ export function useSize({
     const height = rect.height - paddingTop - paddingBottom;
     const width = rect.width - paddingLeft - paddingRight;
 
-    onResize({
-      height,
-      width
-    });
+    const nextSize = { height, width };
+    if (
+      prevSize.height !== nextSize.height ||
+      prevSize.width !== nextSize.width
+    ) {
+      stableValuesRef.current.prevSize = nextSize;
+
+      onResize({
+        height,
+        width
+      });
+    }
   });
 
   useLayoutEffect(() => {

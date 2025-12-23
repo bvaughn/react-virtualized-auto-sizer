@@ -1,13 +1,7 @@
 import "@testing-library/jest-dom/vitest";
 import { cleanup } from "@testing-library/react";
-import { afterAll, afterEach, beforeAll, beforeEach, expect, vi } from "vitest";
+import { afterAll, afterEach, beforeAll, expect, vi } from "vitest";
 import failOnConsole from "vitest-fail-on-console";
-import { resetMockGroupIdCounter } from "./lib/global/test/mockGroup";
-import { mockBoundingClientRect } from "./lib/utils/test/mockBoundingClientRect";
-import { mockResizeObserver } from "./lib/utils/test/mockResizeObserver";
-
-let unmockBoundingClientRect: (() => void) | null = null;
-let unmockResizeObserver: (() => void) | null = null;
 
 const PROTOTYPE_PROPS = [
   "clientHeight",
@@ -75,21 +69,6 @@ afterAll(() => {
   });
 });
 
-beforeEach(() => {
-  unmockBoundingClientRect = mockBoundingClientRect();
-  unmockResizeObserver = mockResizeObserver();
-});
-
 afterEach(() => {
   cleanup();
-
-  resetMockGroupIdCounter();
-
-  if (unmockBoundingClientRect) {
-    unmockBoundingClientRect();
-  }
-
-  if (unmockResizeObserver) {
-    unmockResizeObserver();
-  }
 });

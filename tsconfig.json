@@ -23,7 +23,7 @@
     "exactOptionalPropertyTypes": true,
 
     "paths": {
-      "react-resizable-panels": ["./lib"]
+      "react-virtualized-auto-sizer": ["./lib"]
     },
     "types": [
       "csstype",

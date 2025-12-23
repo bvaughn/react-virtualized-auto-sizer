@@ -14,8 +14,8 @@ const libraryConfig: UserConfig = {
   build: {
     lib: {
       entry: resolve(__dirname, "lib/index.ts"),
-      name: "react-resizable-panels",
-      fileName: "react-resizable-panels",
+      name: "react-virtualized-auto-sizer",
+      fileName: "react-virtualized-auto-sizer",
       formats: ["cjs", "es"]
     },
     rollupOptions: {
@@ -55,7 +55,7 @@ const websiteConfig: UserConfig = {
   ],
   resolve: {
     alias: {
-      "react-resizable-panels": resolve(__dirname, "lib")
+      "react-virtualized-auto-sizer": resolve(__dirname, "lib")
     }
   }
 };

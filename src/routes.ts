@@ -4,9 +4,13 @@ export type Route = LazyExoticComponent<ComponentType<unknown>>;
 
 export const routes = {
   "*": lazy(() => import("./routes/PageNotFound")),
-
-  // Home page
-  "/": lazy(() => import("./routes/HomeRoute"))
+  "/": lazy(() => import("./routes/GettingStartedRoute")),
+  "/examples/basic-usage": lazy(() => import("./routes/BasicUsageRoute")),
+  "/examples/server-rendering": lazy(
+    () => import("./routes/ServerRenderingRoute")
+  ),
+  "/props/auto-sizer": lazy(() => import("./routes/AutoSizerPropsRoute")),
+  "/support": lazy(() => import("./routes/SupportRoute"))
 } satisfies Record<string, Route>;
 
 export type Routes = Record<keyof typeof routes, Route>;

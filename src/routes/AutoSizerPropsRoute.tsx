@@ -3,7 +3,7 @@ import { Box } from "../components/Box";
 import { ComponentProps } from "../components/props/ComponentProps";
 import type { ComponentMetadata } from "../types";
 
-export default function HomeRoute() {
+export default function AutoSizerPropsRoute() {
   return (
     <Box direction="column" gap={4}>
       <ComponentProps json={json as ComponentMetadata} section="Props" />

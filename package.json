@@ -1,5 +1,5 @@
 {
-  "name": "react-auto-sizer",
+  "name": "react-virtualized-auto-sizer",
   "version": "1.0.0-alpha.0",
   "type": "module",
   "author": "Brian Vaughn <brian.david.vaughn@gmail.com> (https://github.com/bvaughn/)",
@@ -7,10 +7,10 @@
     "Brian Vaughn <brian.david.vaughn@gmail.com> (https://github.com/bvaughn/)"
   ],
   "license": "MIT",
-  "homepage": "http://react-auto-sizer.now.sh/",
+  "homepage": "http://react-virtualized-auto-sizer.now.sh/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bvaughn/react-auto-sizer.git"
+    "url": "https://github.com/bvaughn/react-virtualized-auto-sizer.git"
   },
   "keywords": [
     "react",
@@ -26,9 +26,9 @@
     "grid",
     "spreadsheet"
   ],
-  "main": "dist/react-auto-sizer.cjs",
-  "module": "dist/react-auto-sizer.js",
-  "types": "dist/react-auto-sizer.d.ts",
+  "main": "dist/react-virtualized-auto-sizer.cjs",
+  "module": "dist/react-virtualized-auto-sizer.js",
+  "types": "dist/react-virtualized-auto-sizer.d.ts",
   "files": [
     "dist"
   ],

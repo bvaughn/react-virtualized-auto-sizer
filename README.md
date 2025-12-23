@@ -21,26 +21,7 @@ Decorates a render prop child and passes it `width` and `height` information.
 #### Required props
 
 <!-- AutoSizer:required-props:begin -->
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>render</td>
-      <td><p>Function responsible for rendering children.</p>
-<p>ℹ️ Width and height will be undefined during the during the initial render and when server-rendering
-@param size Available width and height of parent element (once measured)
-@return React children</p>
-</td>
-    </tr>
-  </tbody>
-</table>
-
+None
 <!-- AutoSizer:required-props:end -->
 
 #### Optional props
@@ -59,6 +40,12 @@ Decorates a render prop child and passes it `width` and `height` information.
       <td>nonce</td>
       <td><p><a href="https://www.w3.org/TR/2016/REC-CSP2-20161215/#script-src-the-nonce-attribute">Nonce</a> used for inline <code>StyleSheet</code>
 in browsers/environments that do not support the <code>ResizeObserver</code> API.</p>
+</td>
+    </tr>
+    <tr>
+      <td>children</td>
+      <td><p>Child component to be passed the available width and height values as props.</p>
+<p>ℹ️ Width and height are undefined during the during the initial render (including server-rendering)</p>
 </td>
     </tr>
     <tr>

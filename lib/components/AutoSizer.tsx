@@ -9,9 +9,9 @@ import type { Props } from "./types";
  * ℹ️ This component began as a fork of the [javascript-detect-element-resize](https://www.npmjs.com/package/javascript-detect-element-resize) package.
  */
 export function AutoSizer({
+  children: Children,
   nonce,
   onResize,
-  render,
   tagName: TagName = "div",
   ...rest
 }: Props) {
@@ -33,6 +33,6 @@ export function AutoSizer({
   return createElement(
     TagName,
     { "data-auto-sizer": "", ref: setElement, ...rest },
-    render(size)
+    Children ? createElement(Children, size) : undefined
   );
 }

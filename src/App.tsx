@@ -39,7 +39,7 @@ export default function App() {
               to="/"
             />
             <div className="hidden md:block text-black text-shadow-white/50 text-shadow-xs">
-              a portable ResizeObserver alternative
+              (re)sizing helper component
             </div>
           </Box>
           <Box align="center" direction="row" gap={4}>

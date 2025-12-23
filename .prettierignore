@@ -2,5 +2,6 @@
 /docs
 /generated
 /public
+/src/routes/examples
 
 integrations/next/.next

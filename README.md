@@ -10,37 +10,73 @@ Standalone version of the `AutoSizer` component from [`react-virtualized`](https
 npm install --save react-virtualized-auto-sizer
 ```
 
-## Documentation
+### AutoSizer
 
+<!-- AutoSizer:description:begin -->
+Decorates a render prop child and passes it `width` and `height` information.
 
-| Property      | Type     | Required? | Description                                                                                                                                                     |
-| :------------ | :------- | :-------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| children      | Function |     ✓     | Function responsible for rendering children. This function should implement the following signature: `({ height?: number \| undefined, width?: number \| undefined }) => PropTypes.element` |
-| className     | String   |           | Optional custom CSS class name to attach to root `AutoSizer` element. This is an advanced property and is not typically necessary.                              |
-| defaultHeight | Number   |           | Height passed to child for initial render; useful for server-side rendering. This value will be overridden with an accurate height after mounting.              |
-| defaultWidth  | Number   |           | Width passed to child for initial render; useful for server-side rendering. This value will be overridden with an accurate width after mounting.                |
-| disableHeight | Boolean  |           | Fixed `height`; if specified, the child's `height` property will not be managed                                                                                 |
-| disableWidth  | Boolean  |           | Fixed `width`; if specified, the child's `width` property will not be managed                                                                                   |
-| doNotBailOutOnEmptyChildren | boolean | | Optional propr that can override default behavior of not rendering children when either `width` or `height` are 0 |
-| nonce         | String   |           | Nonce of the inlined stylesheets for [Content Security Policy](https://www.w3.org/TR/2016/REC-CSP2-20161215/#script-src-the-nonce-attribute)                    |
-| onResize      | Function |           | Callback to be invoked on-resize; it is passed the following named parameters: `({ height: number, width: number })`.                                           |
-| style         | Object   |           | Optional custom inline style to attach to root `AutoSizer` element. This is an advanced property and is not typically necessary.                                |
-| tagName       | string   |           | Optional HTML tag name for root element; defaults to `"div"` |
+ℹ️ This component began as a fork of the [javascript-detect-element-resize](https://www.npmjs.com/package/javascript-detect-element-resize) package.
+<!-- AutoSizer:description:end -->
 
-## Examples
+#### Required props
 
-Some components (like those found in [`react-window`](https://github.com/bvaughn/react-window) or [`react-virtualized`](https://github.com/bvaughn/react-virtualized)) require numeric width and height parameters. The `AutoSizer` component can be useful if you want to pass percentage based dimensions.
+<!-- AutoSizer:required-props:begin -->
 
-```jsx
-import AutoSizer from "react-virtualized-auto-sizer";
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>render</td>
+      <td><p>Function responsible for rendering children.</p>
+<p>ℹ️ Width and height will be undefined during the during the initial render and when server-rendering
+@param size Available width and height of parent element (once measured)
+@return React children</p>
+</td>
+    </tr>
+  </tbody>
+</table>
 
-// UI
-<AutoSizer>
-  {({ height, width }) => {
-    // Use these actual sizes to calculate your percentage based sizes
-  }}
-</AutoSizer>;
-```
+<!-- AutoSizer:required-props:end -->
+
+#### Optional props
+
+<!-- AutoSizer:optional-props:begin -->
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>nonce</td>
+      <td><p><a href="https://www.w3.org/TR/2016/REC-CSP2-20161215/#script-src-the-nonce-attribute">Nonce</a> used for inline <code>StyleSheet</code>
+in browsers/environments that do not support the <code>ResizeObserver</code> API.</p>
+</td>
+    </tr>
+    <tr>
+      <td>onResize</td>
+      <td><p>Optional callback notified after a resize.
+@param size New width and height of parent element</p>
+</td>
+    </tr>
+    <tr>
+      <td>tagName</td>
+      <td><p>Optional HTML tag name for root HTMLElement; defaults to <code>&quot;div&quot;</code>.</p>
+</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- AutoSizer:optional-props:end -->
+
 
 ## FAQs
 

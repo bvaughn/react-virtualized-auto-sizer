@@ -1,11 +1,12 @@
+import json from "../../public/generated/js-docs/AutoSizer.json";
 import { Box } from "../components/Box";
-import { Header } from "../components/Header";
+import { ComponentProps } from "../components/props/ComponentProps";
+import type { ComponentMetadata } from "../types";
 
 export default function HomeRoute() {
   return (
     <Box direction="column" gap={4}>
-      <Header title="Home" />
-      <div>TODO</div>
+      <ComponentProps json={json as ComponentMetadata} section="Props" />
     </Box>
   );
 }

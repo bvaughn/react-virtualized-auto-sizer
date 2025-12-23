@@ -1,0 +1,59 @@
+{
+  "description": [
+    {
+      "content": "<p>Decorates a render prop child and passes it <code>width</code> and <code>height</code> information.</p>\n"
+    },
+    {
+      "content": "<p>This component began as a fork of the <a href=\"https://www.npmjs.com/package/javascript-detect-element-resize\">javascript-detect-element-resize</a> package.</p>\n",
+      "intent": "primary"
+    }
+  ],
+  "filePath": "lib/components/AutoSizer.tsx",
+  "name": "AutoSizer",
+  "props": {
+    "nonce": {
+      "description": [
+        {
+          "content": "<p><a href=\"https://www.w3.org/TR/2016/REC-CSP2-20161215/#script-src-the-nonce-attribute\">Nonce</a> used for inline <code>StyleSheet</code>\nin browsers/environments that do not support the <code>ResizeObserver</code> API.</p>\n"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">nonce</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-variableName\">string</span></div>",
+      "name": "nonce",
+      "required": false
+    },
+    "onResize": {
+      "description": [
+        {
+          "content": "<p>Optional callback notified after a resize.\n"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">onResize</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-punctuation\">(</span><span class=\"tok-punctuation\">(</span><span class=\"tok-variableName tok-definition\">size</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-punctuation\">{</span><span class=\"\"> </span><span class=\"tok-propertyName tok-definition\">height</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-typeName\">number</span><span class=\"tok-punctuation\">;</span><span class=\"\"> </span><span class=\"tok-propertyName tok-definition\">width</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-typeName\">number</span><span class=\"tok-punctuation\">;</span><span class=\"\"> </span><span class=\"tok-punctuation\">}</span><span class=\"tok-punctuation\">)</span><span class=\"\"> </span><span class=\"tok-punctuation\">=&#62;</span><span class=\"\"> </span><span class=\"tok-keyword\">void</span><span class=\"tok-punctuation\">)</span></div>",
+      "name": "onResize",
+      "required": false
+    },
+    "render": {
+      "description": [
+        {
+          "content": "<p>Function responsible for rendering children.</p>\n"
+        },
+        {
+          "content": "<p>Width and height will be undefined during the during the initial render and when server-rendering\n",
+          "intent": "primary"
+        }
+      ],
+      "html": "<div><span class=\"tok-labelName\"><span class=\"tok-propertyName\">render</span></span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-punctuation\">(</span><span class=\"tok-variableName tok-definition\">size</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-punctuation\">{</span><span class=\"\"> </span><span class=\"tok-propertyName tok-definition\">height</span><span class=\"\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-typeName\">number</span><span class=\"\"> </span><span class=\"tok-operator\">|</span><span class=\"\"> </span><span class=\"tok-typeName\">undefined</span><span class=\"tok-punctuation\">;</span><span class=\"\"> </span><span class=\"tok-propertyName tok-definition\">width</span><span class=\"\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-typeName\">number</span><span class=\"\"> </span><span class=\"tok-operator\">|</span><span class=\"\"> </span><span class=\"tok-typeName\">undefined</span><span class=\"tok-punctuation\">;</span><span class=\"\"> </span><span class=\"tok-punctuation\">}</span><span class=\"tok-punctuation\">)</span><span class=\"\"> </span><span class=\"tok-punctuation\">=&#62;</span><span class=\"\"> </span><span class=\"tok-variableName\">ReactNode</span></div>",
+      "name": "render",
+      "required": true
+    },
+    "tagName": {
+      "description": [
+        {
+          "content": "<p>Optional HTML tag name for root HTMLElement; defaults to <code>&quot;div&quot;</code>.</p>\n"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">tagName</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-variableName\">string</span><span class=\"\"> </span><span class=\"tok-operator\">=</span><span class=\"\"> </span><span class=\"tok-string\">\"div\"</span></div>",
+      "name": "tagName",
+      "required": false
+    }
+  }
+}

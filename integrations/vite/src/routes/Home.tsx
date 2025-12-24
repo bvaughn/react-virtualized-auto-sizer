@@ -14,7 +14,12 @@ import {
 import { Children } from "../components/Children";
 
 export function Home() {
-  const [container] = useState(() => document.createElement("div"));
+  const [container] = useState(() => {
+    const div = document.createElement("div");
+    div.style =
+      "width: 100%; height: 100vh; background-color: white; color: black; display: flex; align-items: center; justify-content: center; font-family: sans-serif;";
+    return div;
+  });
   const [iframe, setIframe] = useState<HTMLIFrameElement | null>(null);
 
   useLayoutEffect(() => {
@@ -22,8 +27,10 @@ export function Home() {
       return;
     }
 
-    iframe.contentDocument.body.style =
-      "background-color: white; color: black; font-family: sans-serif; font-size: 12px;";
+    // TODO ?
+    // iframe.contentDocument.body.classList.add(...document.body.classList);
+
+    iframe.contentDocument.body.style = "margin: 0; padding: 0; height: 100vh;";
     iframe.contentDocument.body.appendChild(container);
   }, [container, iframe]);
 
@@ -47,24 +54,23 @@ export function Home() {
   }, []);
 
   return (
-    <>
-      <iframe className="w-full h-10" ref={setIframe} />
+    <div className="w-full h-full">
+      <iframe className="w-full h-[25%]" ref={setIframe} />
       {createPortal(
         <AutoSizer children={children} onResize={onResize} />,
         container
       )}
-      <pre className="text-xs">
-        <code>
-          {JSON.stringify(
-            {
-              commits,
-              onResizeCalls
-            },
-            null,
-            2
-          )}
+      <pre className="text-xs p-2">
+        <code
+          className="h-full w-full whitespace-pre-wrap overflow-auto"
+          data-testid="code"
+        >
+          {JSON.stringify({
+            commits,
+            onResizeCalls
+          })}
         </code>
       </pre>
-    </>
+    </div>
   );
 }

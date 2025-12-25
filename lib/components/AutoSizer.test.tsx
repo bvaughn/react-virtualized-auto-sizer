@@ -8,29 +8,29 @@ describe("AutoSizer", () => {
     vi.resetAllMocks();
   });
 
-  it("should call children with undefined size values during the initial render", async () => {
-    const Children = vi.fn(() => null);
+  it("should call Child with undefined size values during the initial render", async () => {
+    const Child = vi.fn(() => null);
     const onResize = vi.fn();
 
-    renderForTest(<AutoSizer children={Children} onResize={onResize} />);
+    renderForTest(<AutoSizer Child={Child} onResize={onResize} />);
 
-    expect(Children).toHaveBeenCalledTimes(1);
-    expect(Children).toHaveBeenCalledWith({}, undefined);
+    expect(Child).toHaveBeenCalledTimes(1);
+    expect(Child).toHaveBeenCalledWith({}, undefined);
     expect(onResize).not.toHaveBeenCalled();
   });
 
-  it("should pass children width and height once mounted", async () => {
-    const Children = vi.fn(() => null);
+  it("should pass Child width and height once mounted", async () => {
+    const Child = vi.fn(() => null);
     const onResize = vi.fn();
 
     const { container } = renderForTest(
-      <AutoSizer children={Children} onResize={onResize} />
+      <AutoSizer Child={Child} onResize={onResize} />
     );
 
-    expect(Children).toHaveBeenCalled();
+    expect(Child).toHaveBeenCalled();
     expect(onResize).not.toHaveBeenCalled();
 
-    Children.mockReset();
+    Child.mockReset();
 
     await simulateResize({
       element: container,
@@ -38,8 +38,8 @@ describe("AutoSizer", () => {
       width: 200
     });
 
-    expect(Children).toHaveBeenCalledTimes(1);
-    expect(Children).toHaveBeenCalledWith(
+    expect(Child).toHaveBeenCalledTimes(1);
+    expect(Child).toHaveBeenCalledWith(
       {
         height: 100,
         width: 200
@@ -58,9 +58,10 @@ describe("AutoSizer", () => {
     it("pass through additional attributes", () => {
       const { container } = renderForTest(
         <AutoSizer
+          Child={undefined}
           className="foo"
+          data-testid="test-id"
           id="auto-sizer"
-          role="button"
           style={{ backgroundColor: "red" }}
         />
       );
@@ -69,13 +70,15 @@ describe("AutoSizer", () => {
         "[data-auto-sizer]"
       ) as HTMLDivElement;
       expect(element.className).toContain("foo");
+      expect(element.getAttribute("data-testid")).toEqual("test-id");
       expect(element.getAttribute("id")).toEqual("auto-sizer");
-      expect(element.getAttribute("role")).toEqual("button");
       expect(element.style.backgroundColor).toEqual("red");
     });
 
     it("should support a different tagName", () => {
-      const { container } = renderForTest(<AutoSizer tagName="span" />);
+      const { container } = renderForTest(
+        <AutoSizer Child={undefined} tagName="span" />
+      );
 
       const element = container.querySelector(
         "[data-auto-sizer]"

@@ -11,6 +11,50 @@
   "filePath": "lib/components/AutoSizer.tsx",
   "name": "AutoSizer",
   "props": {
+    "Child": {
+      "description": [
+        {
+          "content": "<p>Child component to be passed the available width and height values as props.</p>\n"
+        },
+        {
+          "content": "<p>Width and height are undefined during the during the initial render (including server-rendering).</p>\n",
+          "intent": "primary"
+        }
+      ],
+      "html": "<div><span class=\"tok-labelName\"><span class=\"tok-propertyName\">Child</span></span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-variableName\">FunctionComponent</span><span class=\"\">&#60;</span><span class=\"tok-punctuation\">{</span><span class=\"\"> </span><span class=\"tok-propertyName tok-definition\">height</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-typeName\">number</span><span class=\"\"> </span><span class=\"tok-operator\">|</span><span class=\"\"> </span><span class=\"tok-typeName\">undefined</span><span class=\"tok-punctuation\">;</span><span class=\"\"> </span><span class=\"tok-propertyName tok-definition\">width</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-typeName\">number</span><span class=\"\"> </span><span class=\"tok-operator\">|</span><span class=\"\"> </span><span class=\"tok-typeName\">undefined</span><span class=\"tok-punctuation\">;</span><span class=\"\"> </span><span class=\"tok-punctuation\">}</span><span class=\"\">&#62; </span><span class=\"tok-operator\">|</span><span class=\"\"> </span><span class=\"tok-variableName\">undefined</span></div>",
+      "name": "Child",
+      "required": true
+    },
+    "className": {
+      "description": [
+        {
+          "content": "<p>Class name to be applied to the auto-sizer <code>HTMLElement</code>.</p>\n"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">className</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-variableName\">string</span></div>",
+      "name": "className",
+      "required": false
+    },
+    "data-testid": {
+      "description": [
+        {
+          "content": "<p>Test id attribute to interop with frameworks like <a href=\"https://testing-library.com/docs/queries/bytestid/\">Testing Library</a>.</p>\n"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">data-testid</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-variableName\">string</span></div>",
+      "name": "data-testid",
+      "required": false
+    },
+    "id": {
+      "description": [
+        {
+          "content": "<p>Unique id attribute to attach to root DOM element.</p>\n"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">id</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-variableName\">string</span><span class=\"\"> </span><span class=\"tok-operator\">|</span><span class=\"\"> </span><span class=\"tok-variableName\">number</span></div>",
+      "name": "id",
+      "required": false
+    },
     "nonce": {
       "description": [
         {
@@ -21,20 +65,6 @@
       "name": "nonce",
       "required": false
     },
-    "children": {
-      "description": [
-        {
-          "content": "<p>Child component to be passed the available width and height values as props.</p>\n"
-        },
-        {
-          "content": "<p>Width and height are undefined during the during the initial render (including server-rendering)</p>\n",
-          "intent": "primary"
-        }
-      ],
-      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">children</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-variableName\">FunctionComponent</span><span class=\"\">&#60;</span><span class=\"tok-typeName\">AutoSizerChildrenProps</span><span class=\"\">&#62;</span></div>",
-      "name": "children",
-      "required": false
-    },
     "onResize": {
       "description": [
         {
@@ -43,6 +73,16 @@
       ],
       "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">onResize</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-punctuation\">(</span><span class=\"tok-punctuation\">(</span><span class=\"tok-variableName tok-definition\">size</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-punctuation\">{</span><span class=\"\"> </span><span class=\"tok-propertyName tok-definition\">height</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-typeName\">number</span><span class=\"tok-punctuation\">;</span><span class=\"\"> </span><span class=\"tok-propertyName tok-definition\">width</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-typeName\">number</span><span class=\"tok-punctuation\">;</span><span class=\"\"> </span><span class=\"tok-punctuation\">}</span><span class=\"tok-punctuation\">)</span><span class=\"\"> </span><span class=\"tok-punctuation\">=&#62;</span><span class=\"\"> </span><span class=\"tok-keyword\">void</span><span class=\"tok-punctuation\">)</span></div>",
       "name": "onResize",
+      "required": false
+    },
+    "style": {
+      "description": [
+        {
+          "content": "<p>Style properties to be applied to the auto-sizer <code>HTMLElement</code>.</p>\n"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">style</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-variableName\">CSSProperties</span></div>",
+      "name": "style",
       "required": false
     },
     "tagName": {

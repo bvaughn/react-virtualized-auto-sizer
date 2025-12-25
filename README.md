@@ -21,7 +21,24 @@ Measures the available width and height of its parent `HTMLElement` and passes t
 #### Required props
 
 <!-- AutoSizer:required-props:begin -->
-None
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Child</td>
+      <td><p>Child component to be passed the available width and height values as props.</p>
+<p>ℹ️ Width and height are undefined during the during the initial render (including server-rendering).</p>
+</td>
+    </tr>
+  </tbody>
+</table>
+
 <!-- AutoSizer:required-props:end -->
 
 #### Optional props
@@ -37,21 +54,35 @@ None
   </thead>
   <tbody>
     <tr>
+      <td>className</td>
+      <td><p>Class name to be applied to the auto-sizer <code>HTMLElement</code>.</p>
+</td>
+    </tr>
+    <tr>
+      <td>data-testid</td>
+      <td><p>Test id attribute to interop with frameworks like <a href="https://testing-library.com/docs/queries/bytestid/">Testing Library</a>.</p>
+</td>
+    </tr>
+    <tr>
+      <td>id</td>
+      <td><p>Unique id attribute to attach to root DOM element.</p>
+</td>
+    </tr>
+    <tr>
       <td>nonce</td>
       <td><p><a href="https://www.w3.org/TR/2016/REC-CSP2-20161215/#script-src-the-nonce-attribute">Nonce</a> used for inline <code>StyleSheet</code>
 in browsers/environments that do not support the <code>ResizeObserver</code> API.</p>
 </td>
     </tr>
     <tr>
-      <td>children</td>
-      <td><p>Child component to be passed the available width and height values as props.</p>
-<p>ℹ️ Width and height are undefined during the during the initial render (including server-rendering)</p>
-</td>
-    </tr>
-    <tr>
       <td>onResize</td>
       <td><p>Optional callback notified after a resize.
 @param size New width and height of parent element</p>
+</td>
+    </tr>
+    <tr>
+      <td>style</td>
+      <td><p>Style properties to be applied to the auto-sizer <code>HTMLElement</code>.</p>
 </td>
     </tr>
     <tr>

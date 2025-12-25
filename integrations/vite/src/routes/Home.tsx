@@ -6,12 +6,8 @@ import {
   type FunctionComponent
 } from "react";
 import { createPortal } from "react-dom";
-import {
-  AutoSizer,
-  type AutoSizerChildrenProps,
-  type Size
-} from "react-virtualized-auto-sizer";
-import { Children } from "../components/Children";
+import { AutoSizer, type Size } from "react-virtualized-auto-sizer";
+import { Children, type SizeProps } from "../components/Children";
 
 export function Home() {
   const [container] = useState(() => {
@@ -34,10 +30,10 @@ export function Home() {
     iframe.contentDocument.body.appendChild(container);
   }, [container, iframe]);
 
-  const [commits, setCommits] = useState<AutoSizerChildrenProps[]>([]);
+  const [commits, setCommits] = useState<SizeProps[]>([]);
   const [onResizeCalls, setOnResizeCalls] = useState<Size[]>([]);
 
-  const children = useMemo<FunctionComponent<AutoSizerChildrenProps>>(
+  const Child = useMemo<FunctionComponent<SizeProps>>(
     () =>
       ({ height, width }) => (
         <Children
@@ -56,10 +52,7 @@ export function Home() {
   return (
     <div className="w-full h-full">
       <iframe className="w-full h-[25%]" ref={setIframe} />
-      {createPortal(
-        <AutoSizer children={children} onResize={onResize} />,
-        container
-      )}
+      {createPortal(<AutoSizer Child={Child} onResize={onResize} />, container)}
       <pre className="text-xs p-2">
         <code
           className="h-full w-full whitespace-pre-wrap overflow-auto"

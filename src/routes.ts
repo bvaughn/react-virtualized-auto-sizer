@@ -6,6 +6,7 @@ export const routes = {
   "*": lazy(() => import("./routes/PageNotFound")),
   "/": lazy(() => import("./routes/GettingStartedRoute")),
   "/examples/basic-usage": lazy(() => import("./routes/BasicUsageRoute")),
+  "/examples/render-prop": lazy(() => import("./routes/RenderPropRoute")),
   "/props/auto-sizer": lazy(() => import("./routes/AutoSizerPropsRoute")),
   "/support": lazy(() => import("./routes/SupportRoute"))
 } satisfies Record<string, Route>;

@@ -1,20 +1,21 @@
 import { useLayoutEffect, useState } from "react";
-import type { AutoSizerChildrenProps } from "react-virtualized-auto-sizer";
+
+export type SizeProps = {
+  height: number | undefined;
+  width: number | undefined;
+};
 
 export const Children = function Children({
   height,
   onCommitLogsChange,
   width
-}: AutoSizerChildrenProps & {
-  onCommitLogsChange: (logs: AutoSizerChildrenProps[]) => void;
+}: SizeProps & {
+  onCommitLogsChange: (logs: SizeProps[]) => void;
 }) {
-  const [commitLogs, setCommitLogs] = useState<AutoSizerChildrenProps[]>([]);
+  const [commitLogs, setCommitLogs] = useState<SizeProps[]>([]);
 
   useLayoutEffect(() => {
-    setCommitLogs((prev) => [
-      ...prev,
-      { height, width } as AutoSizerChildrenProps
-    ]);
+    setCommitLogs((prev) => [...prev, { height, width } as SizeProps]);
   }, [height, width]);
 
   useLayoutEffect(() => onCommitLogsChange(commitLogs));

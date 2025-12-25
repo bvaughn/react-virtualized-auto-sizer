@@ -1,21 +1,17 @@
-import { AutoSizer, type AutoSizerChildrenProps } from "react-virtualized-auto-sizer";
+import { AutoSizer, type AutoSizerChildProps } from "react-virtualized-auto-sizer";
 
 function ExampleComponent() {
   return (
-    <AutoSizer>
-      {ComponentThatRequiresWidthAndHeight}
-    </AutoSizer>
+    <AutoSizer Child={Child} />
   )
 }
 
-// Default height and width will be used for the initial render or when server rendering
-function ComponentThatRequiresWidthAndHeight({
-  height = 600,
-  width = 600
-}: AutoSizerChildrenProps) {
+// Height and width will be undefined for the initial render (or when server rendering)
+// You can either set default values (as shown below) or render some sort of placeholder
+function Child({ height = 600, width = 600 }: AutoSizerChildProps) {
   return <div>{width} x {height} pixels</div>;
 }
 
 // <end>
 
-export { ExampleComponent, ComponentThatRequiresWidthAndHeight }
+export { Child, ExampleComponent };

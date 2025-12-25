@@ -1,22 +1,43 @@
-import type { FunctionComponent, HTMLAttributes } from "react";
+import type { CSSProperties, FunctionComponent } from "react";
 
-export type AutoSizerChildrenProps =
-  | {
-      height: number;
-      width: number;
-    }
-  | {
-      height: undefined;
-      width: undefined;
-    };
+/**
+ * Props definition for the `AutoSizer` component's `Child` prop.
+ */
+export type AutoSizerChildProps = {
+  height: number | undefined;
+  width: number | undefined;
+};
 
-export type AutoSizerProps = Omit<HTMLAttributes<HTMLElement>, "children"> & {
+/**
+ * Props definition to the `AutoSizer` component.
+ */
+export type AutoSizerProps = {
   /**
    * Child component to be passed the available width and height values as props.
    *
-   * ℹ️ Width and height are undefined during the during the initial render (including server-rendering)
+   * ℹ️ Width and height are undefined during the during the initial render (including server-rendering).
    */
-  children?: FunctionComponent<AutoSizerChildrenProps> | undefined;
+  Child:
+    | FunctionComponent<{
+        height: number | undefined;
+        width: number | undefined;
+      }>
+    | undefined;
+
+  /**
+   * Class name to be applied to the auto-sizer `HTMLElement`.
+   */
+  className?: string | undefined;
+
+  /**
+   * Test id attribute to interop with frameworks like [Testing Library](https://testing-library.com/docs/queries/bytestid/).
+   */
+  "data-testid"?: string | undefined;
+
+  /**
+   * Unique id attribute to attach to root DOM element.
+   */
+  id?: string | number | undefined;
 
   /**
    * [Nonce](https://www.w3.org/TR/2016/REC-CSP2-20161215/#script-src-the-nonce-attribute) used for inline `StyleSheet`
@@ -30,6 +51,11 @@ export type AutoSizerProps = Omit<HTMLAttributes<HTMLElement>, "children"> & {
    * @param size New width and height of parent element
    */
   onResize?: ((size: { height: number; width: number }) => void) | undefined;
+
+  /**
+   * Style properties to be applied to the auto-sizer `HTMLElement`.
+   */
+  style?: CSSProperties | undefined;
 
   /**
    * Optional HTML tag name for root HTMLElement; defaults to `"div"`.

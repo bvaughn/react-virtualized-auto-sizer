@@ -8,6 +8,7 @@ export function Nav() {
         <NavLink path="/">Getting started</NavLink>
         <NavSection label="Examples">
           <NavLink path="/examples/basic-usage">Basic usage</NavLink>
+          <NavLink path="/examples/render-prop">Render prop</NavLink>
         </NavSection>
         <NavSection label="Props">
           <NavLink path="/props/auto-sizer">AutoSizer component</NavLink>

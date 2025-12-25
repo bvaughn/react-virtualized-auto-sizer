@@ -57,7 +57,12 @@ Refer to [the docs](https://react-virtualized-auto-sizer.vercel.app/) for a comp
 // Version 2
 <AutoSizer Child={MemoizedChild} />
 
-const MemoizedChild = React.memo(Child, (oldProps, newProps) => oldProps.height !== newProps.height);
+const MemoizedChild = memo(
+  Child,
+  function arePropsEqual(oldProps, newProps) {
+    return oldProps.height === newProps.height;
+  }
+);
 ```
 
 ## 1.0.26

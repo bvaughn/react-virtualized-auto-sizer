@@ -113,48 +113,38 @@ in browsers/environments that do not support the <code>ResizeObserver</code> API
 
 Flex containers don't prevent their children from growing and `AutoSizer` greedily grows to fill as much space as possible. Combining the two can be problematic. The simple way to fix this is to nest `AutoSizer` inside of a `block` element (like a `<div>`) rather than putting it as a direct child of the flex container, like so:
 
-```jsx
+```tsx
 <div style={{ display: 'flex' }}>
-  <!-- Other children... -->
+  {/* Other children... */}
   <div style={{ flex: '1 1 auto' }}>
-    <AutoSizer>
-      {({ height, width }) => (
-        <Component
-          width={width}
-          height={height}
-          {...props}
-        />
-      )}
-    </AutoSizer>
+    <AutoSizer Child={ChildComponent} />
   </div>
 </div>
 ```
 
 ### Why is `AutoSizer` passing a height of 0?
 
-`AutoSizer` expands to _fill_ its parent but it will not _stretch_ the parent. This is done to prevent problems with flexbox layouts. If `AutoSizer` is reporting a height (or width) of 0- then it's likely that the parent element (or one of its parents) has a height of 0.
+`AutoSizer` expands to _fill_ its parent but it will not _stretch_ the parent. This is done to prevent problems with Flex layouts. If `AutoSizer` is reporting a height (or width) of 0- then it's likely that the parent element (or one of its parents) has a height of 0.
 
-The solution to this problem is often to add `height: 100%` or `flex: 1` to the parent. One easy way to test this is to add a style property (eg `background-color: red;`) to the parent to visually confirm that it is the expected size.
+The solution to this problem is often to add `height: 100%` or `flex: 1` to the parent. One easy way to test this is to add a style property (eg. `background-color: red;`) to the parent to visually confirm that it is the expected size.
 
-### Can I use `AutoSizer` to manage only width or height (not both)?
+### Can I use `AutoSizer` to manage _only_ width or height (not both)?
 
-You can use `AutoSizer` to control only one dimension of its child component using the `disableHeight` or `disableWidth` attributes. For example, a fixed-height component that should grow to fill the available width can be created like so:
+No, but you can memoize your child component so that it only re-renders if width (or height) changes.
+```tsx
+import { memo } from "react";
 
-```jsx
-<AutoSizer disableHeight>
-  {({width}) => <Component height={200} width={width} {...props} />}
-</AutoSizer>
+const MemoizedChild = memo(
+  Child,
+  function arePropsEqual(oldProps, newProps) {
+    return oldProps.height === newProps.height;
+  }
+);
 ```
-
-
-### Module parsing fails because of an unexpected token?
-
-This package targets [ECMAScript 2015](https://262.ecma-international.org/6.0/) (ES6) and requires a build tool such as [babel-loader](https://www.npmjs.com/package/babel-loader) that is capable of parsing the ES6 `class` syntax.
 
 ### Can this component work with a Content Security Policy?
 
-[The specification of Content Security Policy](https://www.w3.org/TR/2016/REC-CSP2-20161215/#intro)
-describes as the following:
+[The specification of Content Security Policy](https://www.w3.org/TR/2016/REC-CSP2-20161215/#intro) describes as the following:
 
 > This document defines Content Security Policy, a mechanism web applications
 > can use to mitigate a broad class of content injection vulnerabilities, such

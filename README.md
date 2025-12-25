@@ -54,6 +54,17 @@ Measures the available width and height of its parent `HTMLElement` and passes t
   </thead>
   <tbody>
     <tr>
+      <td>box</td>
+      <td><p>Corresponds to the <code>ResizeObserver</code> <a href="https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver/observe#box">box</a> parameter.
+Sets which box model the observer will observe changes to.</p>
+<ul>
+<li><code>border-box</code>: Size of the box border area as defined in CSS.</li>
+<li><code>content-box</code>: Size of the content area as defined in CSS.</li>
+<li><code>device-pixel-content-box</code>: The size of the content area as defined in CSS, in device pixels, before applying any CSS transforms on the element or its ancestors.</li>
+</ul>
+</td>
+    </tr>
+    <tr>
       <td>className</td>
       <td><p>Class name to be applied to the auto-sizer <code>HTMLElement</code>.</p>
 </td>

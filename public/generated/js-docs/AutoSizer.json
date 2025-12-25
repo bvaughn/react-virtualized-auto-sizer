@@ -11,6 +11,19 @@
   "filePath": "lib/components/AutoSizer.tsx",
   "name": "AutoSizer",
   "props": {
+    "box": {
+      "description": [
+        {
+          "content": "<p>Corresponds to the <code>ResizeObserver</code> <a href=\"https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver/observe#box\">box</a> parameter.\nSets which box model the observer will observe changes to.</p>\n"
+        },
+        {
+          "content": "<ul>\n<li><code>border-box</code>: Size of the box border area as defined in CSS.</li>\n<li><code>content-box</code>: Size of the content area as defined in CSS.</li>\n<li><code>device-pixel-content-box</code>: The size of the content area as defined in CSS, in device pixels, before applying any CSS transforms on the element or its ancestors.</li>\n</ul>\n"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">box</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-string\">\"border-box\"</span><span class=\"\"> </span><span class=\"tok-operator\">|</span><span class=\"\"> </span><span class=\"tok-string\">\"content-box\"</span><span class=\"\"> </span><span class=\"tok-operator\">|</span><span class=\"\"> </span><span class=\"tok-string\">\"device-pixel-content-box\"</span><span class=\"\"> </span><span class=\"tok-operator\">=</span><span class=\"\"> </span><span class=\"tok-string\">\"content-box\"</span></div>",
+      "name": "box",
+      "required": false
+    },
     "Child": {
       "description": [
         {

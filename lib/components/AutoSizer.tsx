@@ -9,6 +9,7 @@ import type { AutoSizerChildProps, AutoSizerProps } from "./types";
  * ℹ️ This component began as a fork of the [javascript-detect-element-resize](https://www.npmjs.com/package/javascript-detect-element-resize) package.
  */
 export function AutoSizer({
+  box = "content-box",
   className,
   Child,
   "data-testid": dataTestId,
@@ -24,6 +25,7 @@ export function AutoSizer({
   const [width, setWidth] = useState<number | undefined>();
 
   useSize({
+    box,
     nonce,
     onResize: (nextSize: Size) => {
       setHeight(nextSize.height);

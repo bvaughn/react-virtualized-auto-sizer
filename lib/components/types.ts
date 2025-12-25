@@ -8,10 +8,25 @@ export type AutoSizerChildProps = {
   width: number | undefined;
 };
 
+export type AutoSizerBox =
+  | "border-box"
+  | "content-box"
+  | "device-pixel-content-box";
+
 /**
  * Props definition to the `AutoSizer` component.
  */
 export type AutoSizerProps = {
+  /**
+   * Corresponds to the `ResizeObserver` [box](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver/observe#box) parameter.
+   * Sets which box model the observer will observe changes to.
+   *
+   * - `border-box`: Size of the box border area as defined in CSS.
+   * - `content-box`: Size of the content area as defined in CSS.
+   * - `device-pixel-content-box`: The size of the content area as defined in CSS, in device pixels, before applying any CSS transforms on the element or its ancestors.
+   */
+  box?: "border-box" | "content-box" | "device-pixel-content-box" | undefined;
+
   /**
    * Child component to be passed the available width and height values as props.
    *

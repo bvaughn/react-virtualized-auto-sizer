@@ -15,7 +15,14 @@ export const Children = function Children({
   const [commitLogs, setCommitLogs] = useState<SizeProps[]>([]);
 
   useLayoutEffect(() => {
-    setCommitLogs((prev) => [...prev, { height, width } as SizeProps]);
+    setCommitLogs((prev) => [
+      ...prev,
+      {
+        height:
+          height === undefined ? undefined : parseFloat(height.toFixed(1)),
+        width: width === undefined ? undefined : parseFloat(width.toFixed(1))
+      } as SizeProps
+    ]);
   }, [height, width]);
 
   useLayoutEffect(() => onCommitLogsChange(commitLogs));

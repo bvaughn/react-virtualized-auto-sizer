@@ -3,10 +3,12 @@ import type { Size } from "../types";
 import { createDetectElementResize } from "../vendor/detectElementResize";
 
 export function useSize({
+  box,
   nonce,
   onResize,
   rootElement
 }: {
+  box: "border-box" | "content-box" | "device-pixel-content-box";
   nonce: string | undefined;
   onResize: (size: Size) => void;
   rootElement: HTMLElement | null;
@@ -39,24 +41,55 @@ export function useSize({
       return;
     }
 
-    // Guard against AutoSizer component being removed from the DOM immediately after being added.
-    // This can result in invalid style values which can result in NaN values if we don't handle them.
-    const style = window.getComputedStyle(parentNode) || {};
-    const paddingLeft = parseFloat(style.paddingLeft || "0");
-    const paddingRight = parseFloat(style.paddingRight || "0");
-    const paddingTop = parseFloat(style.paddingTop || "0");
-    const paddingBottom = parseFloat(style.paddingBottom || "0");
+    let height: number;
+    let width: number;
 
-    const rect = parentNode.getBoundingClientRect();
-    const height = rect.height - paddingTop - paddingBottom;
-    const width = rect.width - paddingLeft - paddingRight;
+    switch (box) {
+      case "border-box": {
+        const rect = parentNode.getBoundingClientRect();
 
-    const nextSize = { height, width };
-    if (
-      prevSize.height !== nextSize.height ||
-      prevSize.width !== nextSize.width
-    ) {
-      stableValuesRef.current.prevSize = nextSize;
+        height = rect.height;
+        width = rect.width;
+        break;
+      }
+      case "content-box": {
+        const rect = parentNode.getBoundingClientRect();
+
+        // Guard against AutoSizer component being removed from the DOM immediately after being added.
+        // This can result in invalid style values which can result in NaN values if we don't handle them.
+        const style = window.getComputedStyle(parentNode) || {};
+        const borderBottomWidth = parseFloat(style.borderBottomWidth || "0");
+        const borderLeftWidth = parseFloat(style.borderLeftWidth || "0");
+        const borderRightWidth = parseFloat(style.borderRightWidth || "0");
+        const borderTopWidth = parseFloat(style.borderTopWidth || "0");
+        const paddingLeft = parseFloat(style.paddingLeft || "0");
+        const paddingRight = parseFloat(style.paddingRight || "0");
+        const paddingTop = parseFloat(style.paddingTop || "0");
+        const paddingBottom = parseFloat(style.paddingBottom || "0");
+
+        height =
+          rect.height -
+          paddingTop -
+          paddingBottom -
+          borderTopWidth -
+          borderBottomWidth;
+        width =
+          rect.width -
+          paddingLeft -
+          paddingRight -
+          borderLeftWidth -
+          borderRightWidth;
+        break;
+      }
+      case "device-pixel-content-box": {
+        height = parentNode.offsetHeight;
+        width = parentNode.offsetWidth;
+        break;
+      }
+    }
+
+    if (prevSize.height !== height || prevSize.width !== width) {
+      stableValuesRef.current.prevSize = { height, width };
 
       onResize({
         height,

@@ -6,14 +6,24 @@ import {
   type FunctionComponent
 } from "react";
 import { createPortal } from "react-dom";
-import { AutoSizer, type Size } from "react-virtualized-auto-sizer";
+import {
+  AutoSizer,
+  type AutoSizerBox,
+  type Size
+} from "react-virtualized-auto-sizer";
 import { Children, type SizeProps } from "../components/Children";
+import { useSearchParams } from "react-router";
 
 export function Home() {
+  const [params] = useSearchParams();
+  const box = (params.get("box") || undefined) as AutoSizerBox | undefined;
+  const style = params.get("style") || "";
+  console.log("Home:", JSON.stringify({ box, style }, null, 2));
+
   const [container] = useState(() => {
     const div = document.createElement("div");
-    div.style =
-      "width: 100%; height: 100vh; background-color: white; color: black; display: flex; align-items: center; justify-content: center; font-family: sans-serif;";
+    div.setAttribute("data-testid", "container");
+    div.style = `width: 100%; height: 100%; box-sizing: border-box; color: white; ${style}`;
     return div;
   });
   const [iframe, setIframe] = useState<HTMLIFrameElement | null>(null);
@@ -22,9 +32,6 @@ export function Home() {
     if (!iframe || !iframe.contentDocument) {
       return;
     }
-
-    // TODO ?
-    // iframe.contentDocument.body.classList.add(...document.body.classList);
 
     iframe.contentDocument.body.style = "margin: 0; padding: 0; height: 100vh;";
     iframe.contentDocument.body.appendChild(container);
@@ -46,13 +53,22 @@ export function Home() {
   );
 
   const onResize = useCallback((size: Size) => {
-    setOnResizeCalls((prev) => [...prev, size]);
+    setOnResizeCalls((prev) => [
+      ...prev,
+      {
+        height: parseFloat(size.height.toFixed(1)),
+        width: parseFloat(size.width.toFixed(1))
+      }
+    ]);
   }, []);
 
   return (
     <div className="w-full h-full">
       <iframe className="w-full h-[25%]" ref={setIframe} />
-      {createPortal(<AutoSizer Child={Child} onResize={onResize} />, container)}
+      {createPortal(
+        <AutoSizer box={box} Child={Child} onResize={onResize} />,
+        container
+      )}
       <pre className="text-xs p-2">
         <code
           className="h-full w-full whitespace-pre-wrap overflow-auto"

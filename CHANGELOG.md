@@ -1,5 +1,70 @@
 # Changelog
 
+# 2.0.0
+
+Version 2 simplifies the API and improves TypeScript support.
+
+## Migrating from 1.x to 2.x
+
+Refer to [the docs](https://react-virtualized-auto-sizer.vercel.app/) for a complete list of props and API methods. Below are some examples of migrating from version 1 to 2, but first a couple of potential questions:
+
+<dl>
+<dt>Q: Why were the <code>defaultHeight</code> and <code>defaultWidth</code> props removed?</dt>
+<dd>A: The more idiomatic way of setting default width and height is to use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters">default parameters</a>; see below for examples.</dd>
+<dt>Q: Why were the <code>disableHeight</code> and <code>disableWidth</code> props removed?</dt>
+<dd>A: These props interfered with the TypeScript inference (see issue <a href="https://github.com/bvaughn/react-virtualized-auto-sizer/issues/100">#100</a>). `React.memo` can be used to achieve this behavior instead; see below for examples.</dd>
+<dt>Q: Why was the <code>doNotBailOutOnEmptyChildren</code> prop removed?</dt>
+<dd>A: This component no longer bails out on empty children; this decision is left up to the child component.</dd>
+<dt>Q: Does <code>AutoSizer</code> support CSS transitions/animations?</dt>
+<dd>A: To an extent, but as with <code>ResizeObserver</code>, there is no event dispatched when a CSS transition is complete (see issue <a href="https://github.com/bvaughn/react-virtualized-auto-sizer/issues/99">#99</a>). As a potential workaround, the <code>box</code> property can be used to report unscaled size; see below for examples.</dd>
+</dl>
+
+### Basic usage
+```tsx
+// Version 1
+<AutoSizer>
+  {({ height, width }) => {
+    // ...
+  }}
+</AutoSizer>
+
+// Version 2
+<AutoSizer
+  Child={({ height, width }) => {
+    // ...
+  }}
+/>
+```
+
+### Default width/height for server rendered content
+```tsx
+// Version 1
+<AutoSizer defaultWidth={800} defaultHeight={600} {...rest} />
+
+// Version 2
+<AutoSizer
+  Child={({ height = 600, width = 800 }) => {
+    // ...
+  }}
+/>
+```
+
+### Width only (or height only)
+```tsx
+// Version 1
+<AutoSizer disableWidth {...rest} />
+
+// Version 2
+<AutoSizer Child={MemoizedChild} />
+
+const MemoizedChild = memo(
+  Child,
+  function arePropsEqual(oldProps, newProps) {
+    return oldProps.height === newProps.height;
+  }
+);
+```
+
 ## 1.0.26
 
 - Changed `width` and `height` values to be based om `getBoundingClientRect` rather than `offsetWidth` and `offsetHeight` ([which are integers](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetWidth#value) and can cause rounding/flickering problems in some cases).

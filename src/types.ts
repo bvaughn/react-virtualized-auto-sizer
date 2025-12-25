@@ -1,58 +1,35 @@
-import { HTMLAttributes, ReactNode } from "react";
+export type Intent = "danger" | "none" | "primary" | "success" | "warning";
 
-export type HorizontalSize = {
-  width: number;
-  scaledWidth: number;
-};
-export type VerticalSize = {
-  height: number;
-  scaledHeight: number;
-};
-export type Size = HorizontalSize & VerticalSize;
-
-type BaseProps = {
-  doNotBailOutOnEmptyChildren?: boolean;
-  nonce?: string;
-  tagName?: string;
-} & Omit<HTMLAttributes<HTMLDivElement>, "children" | "onResize">;
-
-export type HeightOnlyProps = BaseProps & {
-  children: (size: VerticalSize) => ReactNode;
-  defaultHeight?: number;
-  disableHeight?: false;
-  disableWidth: true;
-  onResize?: (size: VerticalSize) => void;
+export type Section = {
+  content: string;
+  intent?: Intent | undefined;
 };
 
-export type WidthOnlyProps = BaseProps & {
-  children: (size: HorizontalSize) => ReactNode;
-  defaultWidth?: number;
-  disableHeight: true;
-  disableWidth?: false;
-  onResize?: (size: HorizontalSize) => void;
+export type ComponentPropMetadata = {
+  description: Section[];
+  html: string;
+  name: string;
+  required: boolean;
 };
 
-export type HeightAndWidthProps = BaseProps & {
-  children: (size: Size) => ReactNode;
-  defaultHeight?: number;
-  defaultWidth?: number;
-  disableHeight?: false;
-  disableWidth?: false;
-  onResize?: (size: Size) => void;
+export type ComponentMetadata = {
+  description: Section[];
+  filePath: string;
+  name: string;
+  props: {
+    [name: string]: ComponentPropMetadata;
+  };
 };
 
-export type Props = HeightOnlyProps | WidthOnlyProps | HeightAndWidthProps;
+export type ImperativeHandleMethodMetadata = {
+  description: Section[];
+  html: string;
+  name: string;
+};
 
-export function isHeightAndWidthProps(
-  props: any
-): props is HeightAndWidthProps {
-  return props && props.disableHeight !== true && props.disableWidth !== true;
-}
-
-export function isHeightOnlyProps(props: any): props is HeightOnlyProps {
-  return props && props.disableHeight !== true && props.disableWidth === true;
-}
-
-export function isWidthOnlyProps(props: any): props is WidthOnlyProps {
-  return props && props.disableHeight === true && props.disableWidth !== true;
-}
+export type ImperativeHandleMetadata = {
+  description: Section[];
+  filePath: string;
+  name: string;
+  methods: ImperativeHandleMethodMetadata[];
+};

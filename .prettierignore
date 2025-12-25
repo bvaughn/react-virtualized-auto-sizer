@@ -1,3 +1,5 @@
-dist
-node_modules
-.trunk
+/dist
+/docs
+/generated
+/public
+/src/routes/examples

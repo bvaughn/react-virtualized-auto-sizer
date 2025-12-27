@@ -4,9 +4,9 @@
 @import "react-lib-tools/styles.css";
 
 :root {
-  --template-gradient-color-1: var(--color-purple-500);
-  --template-gradient-color-2: var(--color-fuchsia-500);
-  --template-gradient-color-3: var(--color-rose-700);
+  --template-gradient-color-1: var(--color-rose-700);
+  --template-gradient-color-2: var(--color-violet-800);
+  --template-gradient-color-3: var(--color-blue-700);
 
   --template-focus-color-300: var(--color-sky-300);
   --template-focus-color-400: var(--color-sky-400);

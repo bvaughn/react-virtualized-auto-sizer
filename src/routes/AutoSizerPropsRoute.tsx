@@ -1,5 +1,5 @@
 import { Box, ComponentProps } from "react-lib-tools";
-import json from "../../public/generated/js-docs/AutoSizer.json";
+import json from "../../public/generated/docs/AutoSizer.json";
 import type { ComponentMetadata } from "../types";
 
 export default function AutoSizerPropsRoute() {

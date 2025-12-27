@@ -1,9 +1,5 @@
+import { Box, Callout, Code, ExternalLink, Header } from "react-lib-tools";
 import { html } from "../../public/generated/code-snippets/RenderProp.json";
-import { Box } from "../components/Box";
-import { Callout } from "../components/Callout";
-import { ExternalLink } from "../components/ExternalLink";
-import { Header } from "../components/Header";
-import { Code } from "../components/code/Code";
 
 export default function RenderPropRoute() {
   return (

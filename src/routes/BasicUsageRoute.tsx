@@ -1,7 +1,5 @@
+import { Box, Code, Header } from "react-lib-tools";
 import { html } from "../../public/generated/code-snippets/ChildComponent.json";
-import { Box } from "../components/Box";
-import { Code } from "../components/code/Code";
-import { Header } from "../components/Header";
 
 export default function BasicUsageRoute() {
   return (

@@ -1,10 +1,6 @@
-import { compileComponents } from "./utils/docs/compileComponents.ts";
+import { compileDocs } from "react-lib-tools/scripts/compile-docs.ts";
 
-async function run() {
-  await compileComponents({
-    componentNames: ["AutoSizer.tsx"],
-    outputDirName: "js-docs"
-  });
-}
-
-run();
+await compileDocs({
+  componentNames: ["AutoSizer.tsx"],
+  imperativeHandleNames: []
+});

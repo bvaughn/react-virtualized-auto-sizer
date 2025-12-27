@@ -1,5 +1,5 @@
 import { Box, Callout, Code, ExternalLink, Header } from "react-lib-tools";
-import { html } from "../../public/generated/code-snippets/RenderProp.json";
+import { html } from "../../public/generated/examples/RenderProp.json";
 
 export default function RenderPropRoute() {
   return (

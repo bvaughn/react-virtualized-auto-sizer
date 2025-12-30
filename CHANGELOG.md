@@ -1,5 +1,9 @@
 # Changelog
 
+# 2.0.1
+
+- [#104](https://github.com/bvaughn/react-virtualized-auto-sizer/pull/104): Separate `renderProp` and `ChildComponent` props.
+
 # 2.0.0
 
 Version 2 simplifies the API and improves TypeScript support.

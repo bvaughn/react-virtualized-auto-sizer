@@ -24,24 +24,7 @@ Measures the available width and height of its parent `HTMLElement` and passes t
 #### Required props
 
 <!-- AutoSizer:required-props:begin -->
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Child</td>
-      <td><p>Child component to be passed the available width and height values as props.</p>
-<p>ℹ️ Width and height are undefined during the during the initial render (including server-rendering).</p>
-</td>
-    </tr>
-  </tbody>
-</table>
-
+None
 <!-- AutoSizer:required-props:end -->
 
 #### Optional props
@@ -102,6 +85,26 @@ in browsers/environments that do not support the <code>ResizeObserver</code> API
     <tr>
       <td>tagName</td>
       <td><p>Optional HTML tag name for root HTMLElement; defaults to <code>&quot;div&quot;</code>.</p>
+</td>
+    </tr>
+    <tr>
+      <td>Child</td>
+      <td><p>Child component to be passed the available width and height values as props.
+@deprecated Use the <code>ChildComponent</code> or <code>renderProp</code> props instead.</p>
+</td>
+    </tr>
+    <tr>
+      <td>ChildComponent</td>
+      <td><p>Child component to be passed the available width and height values as props.</p>
+<p>ℹ️ Use <code>renderProp</code> instead if you need access to local state.</p>
+<p>⚠️ Width and height are undefined during the during the initial render (including server-rendering).</p>
+</td>
+    </tr>
+    <tr>
+      <td>renderProp</td>
+      <td><p>Render prop to be passed the available width and height values as props.</p>
+<p>ℹ️ Use <code>ChildComponent</code> instead for better memoization if you do not need access to local state.</p>
+<p>⚠️ Width and height are undefined during the during the initial render (including server-rendering).</p>
 </td>
     </tr>
   </tbody>

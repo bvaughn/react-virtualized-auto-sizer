@@ -1,12 +1,22 @@
-import type { CSSProperties, FunctionComponent } from "react";
+import type { CSSProperties, FunctionComponent, ReactNode } from "react";
 
 /**
- * Props definition for the `AutoSizer` component's `Child` prop.
+ * Props passed to the `AutoSizer` component's `ChildComponent` or `renderProp`.
  */
-export type AutoSizerChildProps = {
+export type SizeProps = {
   height: number | undefined;
   width: number | undefined;
 };
+
+export type ChildComponent = FunctionComponent<{
+  height: number | undefined;
+  width: number | undefined;
+}>;
+
+export type RenderProp = (params: {
+  height: number | undefined;
+  width: number | undefined;
+}) => ReactNode;
 
 export type AutoSizerBox =
   | "border-box"
@@ -26,18 +36,6 @@ export type AutoSizerProps = {
    * - `device-pixel-content-box`: The size of the content area as defined in CSS, in device pixels, before applying any CSS transforms on the element or its ancestors.
    */
   box?: "border-box" | "content-box" | "device-pixel-content-box" | undefined;
-
-  /**
-   * Child component to be passed the available width and height values as props.
-   *
-   * ℹ️ Width and height are undefined during the during the initial render (including server-rendering).
-   */
-  Child:
-    | FunctionComponent<{
-        height: number | undefined;
-        width: number | undefined;
-      }>
-    | undefined;
 
   /**
    * Class name to be applied to the auto-sizer `HTMLElement`.
@@ -76,4 +74,42 @@ export type AutoSizerProps = {
    * Optional HTML tag name for root HTMLElement; defaults to `"div"`.
    */
   tagName?: string | undefined;
-};
+} & (
+  | {
+      /**
+       * Child component to be passed the available width and height values as props.
+       *
+       * @deprecated Use the `ChildComponent` or `renderProp` props instead.
+       */
+      Child: ChildComponent;
+
+      ChildComponent?: never;
+      renderProp?: never;
+    }
+  | {
+      /**
+       * Child component to be passed the available width and height values as props.
+       *
+       * ℹ️ Use `renderProp` instead if you need access to local state.
+       *
+       * ⚠️ Width and height are undefined during the during the initial render (including server-rendering).
+       */
+      ChildComponent: ChildComponent;
+
+      Child?: never;
+      renderProp?: never;
+    }
+  | {
+      /**
+       * Render prop to be passed the available width and height values as props.
+       *
+       * ℹ️ Use `ChildComponent` instead for better memoization if you do not need access to local state.
+       *
+       * ⚠️ Width and height are undefined during the during the initial render (including server-rendering).
+       */
+      renderProp: RenderProp;
+
+      Child?: never;
+      ChildComponent?: never;
+    }
+);

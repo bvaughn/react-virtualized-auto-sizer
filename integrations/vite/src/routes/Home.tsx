@@ -3,22 +3,25 @@ import {
   useLayoutEffect,
   useMemo,
   useState,
-  type FunctionComponent
+  type FunctionComponent,
+  type ReactNode
 } from "react";
 import { createPortal } from "react-dom";
+import { useSearchParams } from "react-router";
 import {
   AutoSizer,
   type AutoSizerBox,
   type Size
 } from "react-virtualized-auto-sizer";
 import { Children, type SizeProps } from "../components/Children";
-import { useSearchParams } from "react-router";
+
+export type ChildProp = "Child" | "ChildComponent" | "renderProp";
 
 export function Home() {
   const [params] = useSearchParams();
   const box = (params.get("box") || undefined) as AutoSizerBox | undefined;
+  const childProp = (params.get("childProp") || "ChildComponent") as ChildProp;
   const style = params.get("style") || "";
-  console.log("Home:", JSON.stringify({ box, style }, null, 2));
 
   const [container] = useState(() => {
     const div = document.createElement("div");
@@ -40,7 +43,7 @@ export function Home() {
   const [commits, setCommits] = useState<SizeProps[]>([]);
   const [onResizeCalls, setOnResizeCalls] = useState<Size[]>([]);
 
-  const Child = useMemo<FunctionComponent<SizeProps>>(
+  const ChildComponent = useMemo<FunctionComponent<SizeProps>>(
     () =>
       ({ height, width }) => (
         <Children
@@ -62,13 +65,50 @@ export function Home() {
     ]);
   }, []);
 
+  let autoSizer: ReactNode;
+  switch (childProp) {
+    case "Child": {
+      autoSizer = (
+        <AutoSizer box={box} Child={ChildComponent} onResize={onResize} />
+      );
+      break;
+    }
+    case "ChildComponent": {
+      autoSizer = (
+        <AutoSizer
+          box={box}
+          ChildComponent={ChildComponent}
+          onResize={onResize}
+        />
+      );
+      break;
+    }
+    case "renderProp": {
+      autoSizer = (
+        <AutoSizer
+          box={box}
+          onResize={onResize}
+          renderProp={({ height, width }: SizeProps) => (
+            <Children
+              height={height as number}
+              onCommitLogsChange={setCommits}
+              width={width as number}
+            />
+          )}
+        />
+      );
+      break;
+    }
+  }
+
   return (
     <div className="w-full h-full">
-      <iframe className="w-full h-[25%]" ref={setIframe} />
-      {createPortal(
-        <AutoSizer box={box} Child={Child} onResize={onResize} />,
-        container
-      )}
+      <iframe
+        className="w-full h-[25%]"
+        name="auto-sizer-frame"
+        ref={setIframe}
+      />
+      {createPortal(autoSizer, container)}
       <pre className="text-xs p-2">
         <code
           className="h-full w-full whitespace-pre-wrap overflow-auto"

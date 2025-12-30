@@ -5,14 +5,14 @@ import { useState } from "react";
 import { AutoSizer } from "react-virtualized-auto-sizer";
 
 function ExampleComponent(props: ExampleComponentProps) {
-  const [state, setState] = useState();
+  const [state, setState] = useState("...");
 
   return (
-    <AutoSizer Child={
+    <AutoSizer renderProp={
       ({ height = 600, width = 800 }) => {
         // Render prop can access width and height params,
         // as well as the parent component props and state
-        setState; // hidden
+        setState(""); // hidden
         return `${props}${state}${height}${width}`; // hidden
       }
     } />
@@ -21,6 +21,8 @@ function ExampleComponent(props: ExampleComponentProps) {
 
 // <end>
 
-type ExampleComponentProps = {};
+type ExampleComponentProps = {
+  foo: string;
+};
 
 export { ExampleComponent };

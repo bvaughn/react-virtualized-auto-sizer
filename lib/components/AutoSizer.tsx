@@ -1,7 +1,7 @@
 import { createElement, memo, useMemo, useState } from "react";
 import { useSize } from "../hooks/useSize";
 import type { Size } from "../types";
-import type { AutoSizerChildProps, AutoSizerProps } from "./types";
+import type { AutoSizerProps, ChildComponent, RenderProp } from "./types";
 
 /**
  * Measures the available width and height of its parent `HTMLElement` and passes those values as `width` and `height` props to its `children`.
@@ -11,14 +11,24 @@ import type { AutoSizerChildProps, AutoSizerProps } from "./types";
 export function AutoSizer({
   box = "content-box",
   className,
-  Child,
   "data-testid": dataTestId,
   id,
   nonce,
   onResize,
   style,
-  tagName: TagName = "div"
+  tagName: TagName = "div",
+  ...props
 }: AutoSizerProps) {
+  let ChildComponent: ChildComponent | undefined = undefined;
+  let renderProp: RenderProp | undefined = undefined;
+  if ("Child" in props) {
+    ChildComponent = props.Child;
+  } else if ("ChildComponent" in props) {
+    ChildComponent = props.ChildComponent;
+  } else if ("renderProp" in props) {
+    renderProp = props.renderProp;
+  }
+
   const [element, setElement] = useState<HTMLElement | null>(null);
 
   const [height, setHeight] = useState<number | undefined>();
@@ -38,7 +48,10 @@ export function AutoSizer({
     rootElement: element
   });
 
-  const MemoizedChild = useMemo(() => memo(Child ?? NoopChild), [Child]);
+  const MemoizedChildComponent = useMemo(
+    () => (ChildComponent ? memo(ChildComponent) : undefined),
+    [ChildComponent]
+  );
 
   return createElement(
     TagName,
@@ -50,10 +63,9 @@ export function AutoSizer({
       ref: setElement,
       style
     },
-    createElement(MemoizedChild, { height, width })
+    MemoizedChildComponent
+      ? createElement(MemoizedChildComponent, { height, width })
+      : undefined,
+    renderProp ? renderProp({ height, width }) : undefined
   );
-}
-
-function NoopChild(_: AutoSizerChildProps) {
-  return null;
 }

@@ -16,8 +16,8 @@ export default function App() {
         <div>
           <NavLink path="/">Getting started</NavLink>
           <NavSection label="Examples">
-            <NavLink path="/examples/basic-usage">Basic usage</NavLink>
-            <NavLink path="/examples/render-prop">Render prop</NavLink>
+            <NavLink path="/examples/child-component">Child component</NavLink>
+            <NavLink path="/examples/render-prop">Render prop function</NavLink>
           </NavSection>
           <NavSection label="Props">
             <NavLink path="/props/auto-sizer">AutoSizer component</NavLink>
@@ -30,8 +30,8 @@ export default function App() {
           <div>
             This package measures the available width and height of an{" "}
             <code>HTMLElement</code> and passes those values as props to a{" "}
-            <code>Child</code> component. Refer to the{" "}
-            <Link to="/examples/basic-usage">examples</Link> or{" "}
+            <code>ChildComponent</code> or <code>renderProp</code>. Refer to the{" "}
+            <Link to="/examples/child-component">examples</Link> or{" "}
             <Link to="/props/auto-sizer">props</Link> pages for more
             information.
           </div>

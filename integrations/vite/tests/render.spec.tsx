@@ -1,37 +1,69 @@
 import { expect, test, type Page } from "@playwright/test";
-import type { AutoSizerBox } from "react-virtualized-auto-sizer";
+import { type AutoSizerBox } from "react-virtualized-auto-sizer";
+import type { ChildProp } from "../src/routes/Home";
 
 async function startTest({
   box,
+  childProp,
   page,
   style = ""
 }: {
   box?: AutoSizerBox;
+  childProp?: ChildProp;
   page: Page;
   style?: string;
 }) {
   // page.on("console", (message) => console.log(message.text()));
 
-  const url = `http://localhost:3010/?box=${box ?? ""}&style=${encodeURIComponent(style)}`;
+  const url = new URL("http://localhost:3010");
+  if (box) {
+    url.searchParams.set("box", box);
+  }
+  if (childProp) {
+    url.searchParams.set("childProp", childProp);
+  }
+  if (style) {
+    url.searchParams.set("style", style);
+  }
 
   console.log(`\n${url}\n`);
 
-  await page.goto(url);
+  await page.goto(url.toString());
 }
 
 test.describe("render", () => {
-  test("should mount with undefined size and then update with measured size", async ({
-    page
-  }) => {
-    await startTest({ page });
+  for (const childProp of ["Child", "ChildComponent", "renderProp"]) {
+    test.describe(childProp, () => {
+      test("should mount with undefined size and then update with measured size", async ({
+        page
+      }) => {
+        await startTest({ childProp: childProp as ChildProp, page });
 
-    await expect(page.getByTestId("code")).toHaveText(
-      JSON.stringify({
-        commits: [{}, { height: 150, width: 1000 }],
-        onResizeCalls: [{ height: 150, width: 1000 }]
-      })
-    );
-  });
+        await expect(page.getByTestId("code")).toHaveText(
+          JSON.stringify({
+            commits: [{}, { height: 150, width: 1000 }],
+            onResizeCalls: [{ height: 150, width: 1000 }]
+          })
+        );
+
+        await page.setViewportSize({ height: 500, width: 500 });
+
+        await expect(page.getByTestId("code")).toHaveText(
+          JSON.stringify({
+            commits: [
+              {},
+              { height: 150, width: 1000 },
+              { height: 125, width: 500 }
+            ],
+            onResizeCalls: [
+              { height: 150, width: 1000 },
+              { height: 125, width: 500 }
+            ]
+          })
+        );
+      });
+    });
+  }
 
   test("should support box: content-box", async ({ page }) => {
     await startTest({

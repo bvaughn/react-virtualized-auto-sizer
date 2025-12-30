@@ -4,9 +4,9 @@ import { html } from "../../public/generated/examples/RenderProp.json";
 export default function RenderPropRoute() {
   return (
     <Box direction="column" gap={4}>
-      <Header section="Examples" title="Render props" />
+      <Header section="Examples" title="Render prop function" />
       <div>
-        The <code>Child</code> component can also be a{" "}
+        The child of an <code>AutoSizer</code> can also be a{" "}
         <ExternalLink href="https://legacy.reactjs.org/docs/render-props.html">
           render prop
         </ExternalLink>

@@ -8,29 +8,31 @@ describe("AutoSizer", () => {
     vi.resetAllMocks();
   });
 
-  it("should call Child with undefined size values during the initial render", async () => {
-    const Child = vi.fn(() => null);
+  it("should pass undefined size values during the initial render", async () => {
+    const ChildComponent = vi.fn(() => null);
     const onResize = vi.fn();
 
-    renderForTest(<AutoSizer Child={Child} onResize={onResize} />);
+    renderForTest(
+      <AutoSizer ChildComponent={ChildComponent} onResize={onResize} />
+    );
 
-    expect(Child).toHaveBeenCalledTimes(1);
-    expect(Child).toHaveBeenCalledWith({}, undefined);
+    expect(ChildComponent).toHaveBeenCalledTimes(1);
+    expect(ChildComponent).toHaveBeenCalledWith({}, undefined);
     expect(onResize).not.toHaveBeenCalled();
   });
 
-  it("should pass Child width and height once mounted", async () => {
-    const Child = vi.fn(() => null);
+  it("should pass actual width and height once mounted", async () => {
+    const renderProp = vi.fn(() => null);
     const onResize = vi.fn();
 
     const { container } = renderForTest(
-      <AutoSizer Child={Child} onResize={onResize} />
+      <AutoSizer onResize={onResize} renderProp={renderProp} />
     );
 
-    expect(Child).toHaveBeenCalled();
+    expect(renderProp).toHaveBeenCalled();
     expect(onResize).not.toHaveBeenCalled();
 
-    Child.mockReset();
+    renderProp.mockReset();
 
     await simulateResize({
       element: container,
@@ -38,14 +40,11 @@ describe("AutoSizer", () => {
       width: 200
     });
 
-    expect(Child).toHaveBeenCalledTimes(1);
-    expect(Child).toHaveBeenCalledWith(
-      {
-        height: 100,
-        width: 200
-      },
-      undefined
-    );
+    expect(renderProp).toHaveBeenCalledTimes(1);
+    expect(renderProp).toHaveBeenCalledWith({
+      height: 100,
+      width: 200
+    });
 
     expect(onResize).toHaveBeenCalledTimes(1);
     expect(onResize).toHaveBeenCalledWith({
@@ -55,10 +54,14 @@ describe("AutoSizer", () => {
   });
 
   describe("HTML", () => {
+    function Child() {
+      return null;
+    }
+
     it("pass through additional attributes", () => {
       const { container } = renderForTest(
         <AutoSizer
-          Child={undefined}
+          Child={Child}
           className="foo"
           data-testid="test-id"
           id="auto-sizer"
@@ -77,7 +80,7 @@ describe("AutoSizer", () => {
 
     it("should support a different tagName", () => {
       const { container } = renderForTest(
-        <AutoSizer Child={undefined} tagName="span" />
+        <AutoSizer Child={Child} tagName="span" />
       );
 
       const element = container.querySelector(

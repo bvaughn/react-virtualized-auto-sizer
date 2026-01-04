@@ -1,6 +1,6 @@
-# react-virtualized-auto-sizer
+<img src="https://react-virtualized-auto-sizer.vercel.app/og.svg" alt="react-virtualized-auto-sizer logo" width="400" height="210" />
 
-This package measures the available width and height of an `HTMLElement` and passes those values as props to a `Child` component. Refer to [the docs](https://react-virtualized-auto-sizer.vercel.app/examples/basic-usage) for usage examples.
+`react-virtualized-auto-sizer`: Measures the available width and height of an `HTMLElement` and passes those values as props to a `Child` component. Refer to [the docs](https://react-virtualized-auto-sizer.vercel.app/examples/basic-usage) for usage examples.
 
 > [!NOTE]
 > This package began as a fork of the `AutoSizer` component from [react-virtualized](https://github.com/bvaughn/react-virtualized), and was intended for use with earlier versions of [react-window](https://github.com/bvaughn/react-virtualized). More recent versions of `react-window` use `ResizeObserver` natively and do not require this package.

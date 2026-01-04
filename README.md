@@ -112,48 +112,6 @@ in browsers/environments that do not support the <code>ResizeObserver</code> API
 
 <!-- AutoSizer:optional-props:end -->
 
-
 ## FAQs
 
-### Can I use this component with flexbox?
-
-Flex containers don't prevent their children from growing and `AutoSizer` greedily grows to fill as much space as possible. Combining the two can be problematic. The simple way to fix this is to nest `AutoSizer` inside of a `block` element (like a `<div>`) rather than putting it as a direct child of the flex container, like so:
-
-```tsx
-<div style={{ display: 'flex' }}>
-  {/* Other children... */}
-  <div style={{ flex: '1 1 auto' }}>
-    <AutoSizer Child={ChildComponent} />
-  </div>
-</div>
-```
-
-### Why is `AutoSizer` passing a height of 0?
-
-`AutoSizer` expands to _fill_ its parent but it will not _stretch_ the parent. This is done to prevent problems with Flex layouts. If `AutoSizer` is reporting a height (or width) of 0- then it's likely that the parent element (or one of its parents) has a height of 0.
-
-The solution to this problem is often to add `height: 100%` or `flex: 1` to the parent. One easy way to test this is to add a style property (eg. `background-color: red;`) to the parent to visually confirm that it is the expected size.
-
-### Can I use `AutoSizer` to manage _only_ width or height (not both)?
-
-No, but you can memoize your child component so that it only re-renders if width (or height) changes.
-```tsx
-import { memo } from "react";
-
-const MemoizedChild = memo(
-  Child,
-  function arePropsEqual(oldProps, newProps) {
-    return oldProps.height === newProps.height;
-  }
-);
-```
-
-### Can this component work with a Content Security Policy?
-
-[The specification of Content Security Policy](https://www.w3.org/TR/2016/REC-CSP2-20161215/#intro) describes as the following:
-
-> This document defines Content Security Policy, a mechanism web applications
-> can use to mitigate a broad class of content injection vulnerabilities, such
-> as cross-site scripting (XSS).
-
-To apply Content Security Policy, pass a `nonce` to `AutoSizer` and add a matching `nonce-source` to the `Content-Security-Policy` field in HTTP header.
+Frequently asked questions can be found [here](https://react-virtualized-auto-sizer.vercel.app/common-questions).

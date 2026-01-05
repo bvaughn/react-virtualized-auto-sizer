@@ -13,6 +13,12 @@
 npm install --save react-virtualized-auto-sizer
 ```
 
+## FAQs
+
+Frequently asked questions can be found [here](https://react-virtualized-auto-sizer.vercel.app/common-questions).
+
+## Documentation
+
 ### AutoSizer
 
 <!-- AutoSizer:description:begin -->
@@ -111,7 +117,3 @@ in browsers/environments that do not support the <code>ResizeObserver</code> API
 </table>
 
 <!-- AutoSizer:optional-props:end -->
-
-## FAQs
-
-Frequently asked questions can be found [here](https://react-virtualized-auto-sizer.vercel.app/common-questions).

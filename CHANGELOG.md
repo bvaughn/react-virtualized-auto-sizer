@@ -1,5 +1,9 @@
 # Changelog
 
+# 2.0.2
+
+- Updated README docs
+
 # 2.0.1
 
 - [#104](https://github.com/bvaughn/react-virtualized-auto-sizer/pull/104): Separate `renderProp` and `ChildComponent` props.

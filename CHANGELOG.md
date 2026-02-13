@@ -1,10 +1,14 @@
 # Changelog
 
-# 2.0.2
+## 2.0.3
+
+- Fixed a problem with project logo not displaying correctly in the README for the Firefox browser.
+
+## 2.0.2
 
 - Updated README docs
 
-# 2.0.1
+## 2.0.1
 
 - [#104](https://github.com/bvaughn/react-virtualized-auto-sizer/pull/104): Separate `renderProp` and `ChildComponent` props.
 

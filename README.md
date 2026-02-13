@@ -1,4 +1,4 @@
-<img src="https://react-virtualized-auto-sizer.vercel.app/og.svg" alt="react-virtualized-auto-sizer logo" width="400" height="210" />
+<img src="https://react-virtualized-auto-sizer.vercel.app/og.png" alt="react-virtualized-auto-sizer logo" width="400" height="210" />
 
 `react-virtualized-auto-sizer`: Measures the available width and height of an `HTMLElement` and passes those values as props to a `Child` component. Refer to [the docs](https://react-virtualized-auto-sizer.vercel.app/examples/basic-usage) for usage examples.
 

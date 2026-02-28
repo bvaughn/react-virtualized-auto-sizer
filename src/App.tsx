@@ -7,6 +7,7 @@ import {
   NavSection,
   type CommonQuestion
 } from "react-lib-tools";
+import { repository } from "../package.json";
 import { html as flexboxHTML } from "../public/generated/examples/FaqFlexbox.json";
 import { html as memoizationHTML } from "../public/generated/examples/FaqMemoization.json";
 import { NavLink } from "./components/NavLink";
@@ -58,6 +59,7 @@ export default function App() {
       }
       packageDescription="(re)sizing helper component"
       packageName="react-virtualized-auto-sizer"
+      repositoryUrl={repository.url}
       routes={routes}
     />
   );

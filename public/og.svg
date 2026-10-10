@@ -1,1 +1,12 @@
-<svg viewBox="0 0 1200 630" width="600" height="315" xmlns="http://www.w3.org/2000/svg"><linearGradient id="react-virtualized-auto-sizer-bg"><stop offset="0%" stop-color="oklch(84.5% 0.143 164.978)"/><stop offset="100%" stop-color="oklch(59.6% 0.145 163.225)"/></linearGradient><rect fill="url('#react-virtualized-auto-sizer-bg')" width="1200" height="630"/><g><circle cx="275" cy="315" r="60" fill="#111"/><ellipse cx="275" cy="315" rx="220" ry="100" stroke="#111" stroke-width="40" fill="none" transform="rotate(45, 275, 315)"/><ellipse cx="275" cy="315" rx="220" ry="100" stroke="#111" stroke-width="40" fill="none" transform="rotate(-45, 275, 315)"/></g><g fill="#fff" font-size="125" font-family="system-ui" font-weight="bold" transform="translate(540, 165)"><text alignment-baseline="middle" dx="0" dy="0">react</text><text alignment-baseline="middle" dx="0" dy="150">virtualized</text><text dx="0" dy="325" font-family="monospace" font-size="100" letter-spacing="-6"><tspan fill="oklch(84.5% 0.143 164.978)">&lt;</tspan><tspan>AutoSizer</tspan><tspan fill="oklch(84.5% 0.143 164.978)">&gt;</tspan></text></g></svg>
+<svg viewBox="0 0 1200 630" width="600" height="315" xmlns="http://www.w3.org/2000/svg"><linearGradient id="generated-og-image-bg"><stop offset="0%" stop-color="oklch(84.5% 0.143 164.978)"></stop><stop offset="100%" stop-color="oklch(59.6% 0.145 163.225)"></stop></linearGradient><rect fill="url('#generated-og-image-bg')" width="1200" height="630"></rect><g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="rvas-logo" x="55" y="95" width="440" height="440" preserveAspectRatio="xMidYMid meet" overflow="visible">
+  <style>
+    .rvas-logo path {
+      stroke: #1A1A1A;
+    }
+    .rvas-logo rect {
+      fill: #1A1A1A;
+    }
+  </style>
+  <path d="M2.25 6.5V4.5a2.25 2.25 0 0 1 2.25-2.25h2M13.5 2.25h2a2.25 2.25 0 0 1 2.25 2.25v2M17.75 13.5v2a2.25 2.25 0 0 1-2.25 2.25h-2M6.5 17.75h-2a2.25 2.25 0 0 1-2.25-2.25v-2" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+  <rect x="6.75" y="6.75" width="6.5" height="6.5" rx="1.25" opacity="0.45"></rect>
+</svg></g><g fill="#fff" font-family="system-ui" font-size="118" font-weight="bold"><text dominant-baseline="middle" x="535" y="132.69">react</text><text dominant-baseline="middle" x="535" y="254.23">virtualized</text><text dominant-baseline="middle" x="535" y="375.77">auto</text><text dominant-baseline="middle" x="535" y="497.31">sizer</text></g></svg>

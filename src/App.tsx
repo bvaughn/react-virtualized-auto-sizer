@@ -4,33 +4,21 @@ import {
   Code,
   ExternalLink,
   Link,
-  NavSection,
-  type CommonQuestion
+  type CommonQuestion,
+  type DefaultPath,
+  type NavConfig
 } from "react-lib-tools";
 import { repository } from "../package.json";
+import Logo from "../public/favicon.svg?react";
 import { html as flexboxHTML } from "../public/generated/examples/FaqFlexbox.json";
 import { html as memoizationHTML } from "../public/generated/examples/FaqMemoization.json";
-import { NavLink } from "./components/NavLink";
-import { routes } from "./routes";
+import { routes, type Path } from "./routes";
 
 export default function App() {
   return (
     <AppRoot
       commonQuestions={commonQuestions}
-      navLinks={
-        <div>
-          <NavLink path="/">Getting started</NavLink>
-          <NavSection label="Examples">
-            <NavLink path="/examples/child-component">Child component</NavLink>
-            <NavLink path="/examples/render-prop">Render prop function</NavLink>
-          </NavSection>
-          <NavSection label="Props">
-            <NavLink path="/props/auto-sizer">AutoSizer component</NavLink>
-          </NavSection>
-          <NavLink path="/common-questions">Common questions</NavLink>
-          <NavLink path="/support">Support</NavLink>
-        </div>
-      }
+      nav={nav}
       overview={
         <>
           <div>
@@ -58,12 +46,30 @@ export default function App() {
         </>
       }
       packageDescription="(re)sizing helper component"
+      packageLogo={<Logo className="rvas-logo w-8 h-8" />}
       packageName="react-virtualized-auto-sizer"
       repositoryUrl={repository.url}
       routes={routes}
     />
   );
 }
+
+const nav: NavConfig<Path | DefaultPath> = [
+  { path: "/", title: "Getting started" },
+  {
+    title: "Examples",
+    links: [
+      { path: "/examples/child-component", title: "Child component" },
+      { path: "/examples/render-prop", title: "Render prop function" }
+    ]
+  },
+  {
+    title: "Props",
+    links: [{ path: "/props/auto-sizer", title: "AutoSizer component" }]
+  },
+  { path: "/common-questions", title: "Common questions" },
+  { path: "/support", title: "Support" }
+];
 
 const commonQuestions: CommonQuestion[] = [
   {
@@ -137,7 +143,7 @@ const commonQuestions: CommonQuestion[] = [
           </ExternalLink>{" "}
           states:
         </p>
-        <Callout minimal>
+        <Callout intent="none">
           Individual inline scripts and stylesheets may be whitelisted via
           nonces.
         </Callout>

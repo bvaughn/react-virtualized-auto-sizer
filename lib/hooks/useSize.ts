@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import type { Size } from "../types";
 import { createDetectElementResize } from "../vendor/detectElementResize";
 
@@ -14,6 +14,7 @@ export function useSize({
   rootElement: HTMLElement | null;
 }) {
   const stableValuesRef = useRef<{
+    box: typeof box;
     onResize: (size: Size) => void;
     parentNode: HTMLElement | null;
     prevSize:
@@ -23,6 +24,7 @@ export function useSize({
           width: undefined;
         };
   }>({
+    box,
     onResize,
     parentNode: null,
     prevSize: {
@@ -35,8 +37,8 @@ export function useSize({
     stableValuesRef.current.onResize = onResize;
   });
 
-  const onResizeStable = useCallback(() => {
-    const { onResize, parentNode, prevSize } = stableValuesRef.current;
+  const onResizeStableRef = useRef(() => {
+    const { box, onResize, parentNode, prevSize } = stableValuesRef.current;
     if (parentNode === null) {
       return;
     }
@@ -57,7 +59,9 @@ export function useSize({
 
         // Guard against AutoSizer component being removed from the DOM immediately after being added.
         // This can result in invalid style values which can result in NaN values if we don't handle them.
-        const style = window.getComputedStyle(parentNode) || {};
+        const style =
+          parentNode.ownerDocument.defaultView!.getComputedStyle(parentNode) ||
+          {};
         const borderBottomWidth = parseFloat(style.borderBottomWidth || "0");
         const borderLeftWidth = parseFloat(style.borderLeftWidth || "0");
         const borderRightWidth = parseFloat(style.borderRightWidth || "0");
@@ -96,6 +100,11 @@ export function useSize({
         width
       });
     }
+  });
+
+  useLayoutEffect(() => {
+    stableValuesRef.current.box = box;
+    onResizeStableRef.current();
   }, [box]);
 
   useLayoutEffect(() => {
@@ -114,6 +123,8 @@ export function useSize({
     }
 
     stableValuesRef.current.parentNode = parentNode;
+
+    const onResizeStable = onResizeStableRef.current;
 
     // Use ResizeObserver from the same context where parentNode (which we will observe) was defined
     // Using just global can result into onResize events not being emitted in cases with multiple realms
@@ -147,5 +158,5 @@ export function useSize({
         detectElementResize.removeResizeListener(parentNode, onResizeStable);
       };
     }
-  }, [nonce, onResizeStable, rootElement]);
+  }, [nonce, rootElement]);
 }

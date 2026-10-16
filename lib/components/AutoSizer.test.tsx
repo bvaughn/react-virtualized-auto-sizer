@@ -76,6 +76,11 @@ describe("AutoSizer", () => {
       rerender(
         <AutoSizer box={nextBox} onResize={onResize} renderProp={renderProp} />
       );
+      expect(onResize).toHaveBeenLastCalledWith(
+        nextBox === "border-box"
+          ? { height: 100, width: 200 }
+          : { height: 70, width: 170 }
+      );
       await simulateResize({ element: container, height: 150, width: 250 });
 
       expect(onResize).toHaveBeenLastCalledWith(
@@ -86,7 +91,7 @@ describe("AutoSizer", () => {
     }
   );
 
-  it("should cancel pending observer work when the box changes", () => {
+  it("should keep the observer and measure immediately when the box changes", () => {
     const callbacks: Array<() => void> = [];
     const disconnect = vi.fn();
     const ResizeObserverMock = vi.fn(function (callback: () => void) {
@@ -121,18 +126,29 @@ describe("AutoSizer", () => {
       rerender(
         <AutoSizer box="border-box" onResize={latest} renderProp={renderProp} />
       );
-      expect(ResizeObserverMock).toHaveBeenCalledTimes(2);
-      expect(disconnect).toHaveBeenCalledTimes(1);
-      expect(vi.getTimerCount()).toBe(0);
+      expect(ResizeObserverMock).toHaveBeenCalledTimes(1);
+      expect(disconnect).not.toHaveBeenCalled();
+      expect(latest).toHaveBeenCalledWith({ height: 100, width: 200 });
+      expect(vi.getTimerCount()).toBe(1);
 
-      act(() => callbacks[1]());
+      rerender(
+        <AutoSizer
+          box="content-box"
+          onResize={latest}
+          renderProp={renderProp}
+        />
+      );
+      expect(ResizeObserverMock).toHaveBeenCalledTimes(1);
+      expect(latest).toHaveBeenLastCalledWith({ height: 70, width: 170 });
+
+      act(() => callbacks[0]());
       act(() => vi.runOnlyPendingTimers());
       expect(first).not.toHaveBeenCalled();
-      expect(latest).toHaveBeenCalledWith({ height: 100, width: 200 });
+      expect(latest).toHaveBeenLastCalledWith({ height: 70, width: 170 });
 
-      act(() => callbacks[1]());
+      act(() => callbacks[0]());
       unmount();
-      expect(disconnect).toHaveBeenCalledTimes(2);
+      expect(disconnect).toHaveBeenCalledTimes(1);
       expect(vi.getTimerCount()).toBe(0);
     } finally {
       vi.unstubAllGlobals();

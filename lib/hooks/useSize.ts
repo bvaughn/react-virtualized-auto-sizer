@@ -14,6 +14,7 @@ export function useSize({
   rootElement: HTMLElement | null;
 }) {
   const stableValuesRef = useRef<{
+    box: typeof box;
     onResize: (size: Size) => void;
     parentNode: HTMLElement | null;
     prevSize:
@@ -23,6 +24,7 @@ export function useSize({
           width: undefined;
         };
   }>({
+    box,
     onResize,
     parentNode: null,
     prevSize: {
@@ -36,7 +38,7 @@ export function useSize({
   });
 
   const onResizeStableRef = useRef(() => {
-    const { onResize, parentNode, prevSize } = stableValuesRef.current;
+    const { box, onResize, parentNode, prevSize } = stableValuesRef.current;
     if (parentNode === null) {
       return;
     }
@@ -57,7 +59,9 @@ export function useSize({
 
         // Guard against AutoSizer component being removed from the DOM immediately after being added.
         // This can result in invalid style values which can result in NaN values if we don't handle them.
-        const style = window.getComputedStyle(parentNode) || {};
+        const style: Partial<CSSStyleDeclaration> =
+          parentNode.ownerDocument.defaultView?.getComputedStyle(parentNode) ||
+          {};
         const borderBottomWidth = parseFloat(style.borderBottomWidth || "0");
         const borderLeftWidth = parseFloat(style.borderLeftWidth || "0");
         const borderRightWidth = parseFloat(style.borderRightWidth || "0");
@@ -99,6 +103,11 @@ export function useSize({
   });
 
   useLayoutEffect(() => {
+    stableValuesRef.current.box = box;
+    onResizeStableRef.current();
+  }, [box]);
+
+  useLayoutEffect(() => {
     if (rootElement === null) {
       return;
     }
@@ -127,6 +136,7 @@ export function useSize({
         // Guard against "ResizeObserver loop limit exceeded" error;
         // could be triggered if the state update causes the ResizeObserver handler to run long.
         // See github.com/bvaughn/react-virtualized-auto-sizer/issues/55
+        clearTimeout(timeoutId);
         timeoutId = setTimeout(onResizeStable, 0);
       });
 

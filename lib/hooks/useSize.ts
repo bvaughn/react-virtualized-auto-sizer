@@ -59,8 +59,8 @@ export function useSize({
 
         // Guard against AutoSizer component being removed from the DOM immediately after being added.
         // This can result in invalid style values which can result in NaN values if we don't handle them.
-        const style =
-          parentNode.ownerDocument.defaultView!.getComputedStyle(parentNode) ||
+        const style: Partial<CSSStyleDeclaration> =
+          parentNode.ownerDocument.defaultView?.getComputedStyle(parentNode) ||
           {};
         const borderBottomWidth = parseFloat(style.borderBottomWidth || "0");
         const borderLeftWidth = parseFloat(style.borderLeftWidth || "0");
@@ -136,6 +136,7 @@ export function useSize({
         // Guard against "ResizeObserver loop limit exceeded" error;
         // could be triggered if the state update causes the ResizeObserver handler to run long.
         // See github.com/bvaughn/react-virtualized-auto-sizer/issues/55
+        clearTimeout(timeoutId);
         timeoutId = setTimeout(onResizeStable, 0);
       });
 

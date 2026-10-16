@@ -1,22 +1,27 @@
 # Changelog
 
+## 2.0.4
+
+- Fix changes to the `box` prop being ignored after the initial render. The parent is now remeasured as soon as `box` changes. - ([feritcemkahraman](https://github.com/feritcemkahraman) - [#107](https://github.com/bvaughn/react-virtualized-auto-sizer/pull/107))
+- Fix `"content-box"` sizes being calculated with styles from the wrong window when rendering into an iframe or popup. - ([feritcemkahraman](https://github.com/feritcemkahraman) - [#107](https://github.com/bvaughn/react-virtualized-auto-sizer/pull/107))
+
 ## 2.0.3
 
-- Fixed a problem with project logo not displaying correctly in the README for the Firefox browser.
+- Fix the project logo not displaying correctly in the README in Firefox.
 
 ## 2.0.2
 
-- Updated README docs
+- Update README docs.
 
 ## 2.0.1
 
-- [#104](https://github.com/bvaughn/react-virtualized-auto-sizer/pull/104): Separate `renderProp` and `ChildComponent` props.
+- Separate `renderProp` and `ChildComponent` props. - [#104](https://github.com/bvaughn/react-virtualized-auto-sizer/pull/104)
 
-# 2.0.0
+## 2.0.0
 
 Version 2 simplifies the API and improves TypeScript support.
 
-## Migrating from 1.x to 2.x
+### Migrating from 1.x to 2.x
 
 Refer to [the docs](https://react-virtualized-auto-sizer.vercel.app/) for a complete list of props and API methods. Below are some examples of migrating from version 1 to 2, but first a couple of potential questions:
 
@@ -31,7 +36,8 @@ Refer to [the docs](https://react-virtualized-auto-sizer.vercel.app/) for a comp
 <dd>A: To an extent, but as with <code>ResizeObserver</code>, there is no event dispatched when a CSS transition is complete (see issue <a href="https://github.com/bvaughn/react-virtualized-auto-sizer/issues/99">#99</a>). As a potential workaround, the <code>box</code> property can be used to report unscaled size; see below for examples.</dd>
 </dl>
 
-### Basic usage
+#### Basic usage
+
 ```tsx
 // Version 1
 <AutoSizer>
@@ -48,7 +54,8 @@ Refer to [the docs](https://react-virtualized-auto-sizer.vercel.app/) for a comp
 />
 ```
 
-### Default width/height for server rendered content
+#### Default width/height for server rendered content
+
 ```tsx
 // Version 1
 <AutoSizer defaultWidth={800} defaultHeight={600} {...rest} />
@@ -61,7 +68,8 @@ Refer to [the docs](https://react-virtualized-auto-sizer.vercel.app/) for a comp
 />
 ```
 
-### Width only (or height only)
+#### Width only (or height only)
+
 ```tsx
 // Version 1
 <AutoSizer disableWidth {...rest} />
@@ -79,36 +87,36 @@ const MemoizedChild = memo(
 
 ## 1.0.26
 
-- Changed `width` and `height` values to be based om `getBoundingClientRect` rather than `offsetWidth` and `offsetHeight` ([which are integers](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetWidth#value) and can cause rounding/flickering problems in some cases).
+- Change `width` and `height` values to be based on `getBoundingClientRect` rather than `offsetWidth` and `offsetHeight` ([which are integers](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetWidth#value) and can cause rounding/flickering problems in some cases).
 
 ## 1.0.25
 
-- Dependencies updated to include React 19
+- Update peer dependencies to include React 19.
 
 ## 1.0.24
 
-- Add optional `doNotBailOutOnEmptyChildren` prop to `AutoSizer` to override default behavior of not rendering children when either width or height are 0
+- Add optional `doNotBailOutOnEmptyChildren` prop to `AutoSizer` to override the default behavior of not rendering children when either width or height is 0.
 
 ## 1.0.23
 
-- Bugfix: Use ResizeObserver global from parentNode realm to support case with multiple realms (#82)
+- Fix `ResizeObserver` events not being emitted when using multiple realms by using the `ResizeObserver` global from the parent node's realm. - [#82](https://github.com/bvaughn/react-virtualized-auto-sizer/issues/82)
 
 ## 1.0.22
 
-- Bugfix: Treat empty-string padding values as 0
+- Fix empty-string padding values not being treated as 0.
 
 ## 1.0.21
 
-- TypeScript change only; `AutoSizer` return type changed from `ReactElement` to `ReactNode`
+- Change `AutoSizer` return type from `ReactElement` to `ReactNode` (TypeScript change only).
 
 ## 1.0.20
 
-- Guard against potential state update after unmount (caused by `setTimeout` when using `ResizeObserver`)
+- Guard against a potential state update after unmount (caused by `setTimeout` when using `ResizeObserver`).
 
 ## 1.0.19
 
-- Further improved TypeScript definitions to avoid `any` types for `children` function parameters.
-- [61](https://github.com/bvaughn/react-virtualized-auto-sizer/pull/61): Build release bundle with Preconstruct.
+- Improve TypeScript definitions to avoid `any` types for `children` function parameters.
+- Build release bundle with Preconstruct. - [#61](https://github.com/bvaughn/react-virtualized-auto-sizer/pull/61)
 
 ## 1.0.18
 
@@ -120,29 +128,29 @@ const MemoizedChild = memo(
 
 ## 1.0.16
 
-- Relaxed `children` prop return type from `ReactElement` to `ReactNode`.
+- Relax `children` prop return type from `ReactElement` to `ReactNode`.
 
 ## 1.0.15
 
-- Readme changes
+- Update README docs.
 
 ## 1.0.14
 
-- Fix potential "_ResizeObserver loop limit exceeded_" error caused by long-running renders ([#55](https://github.com/bvaughn/react-virtualized-auto-sizer/issues/55))
+- Fix potential "_ResizeObserver loop limit exceeded_" error caused by long-running renders. - [#55](https://github.com/bvaughn/react-virtualized-auto-sizer/issues/55)
 
 ## 1.0.13
 
-- Transpile nullish coalescing operator ([#53](https://github.com/bvaughn/react-virtualized-auto-sizer/issues/53))
+- Transpile nullish coalescing operator. - [#53](https://github.com/bvaughn/react-virtualized-auto-sizer/issues/53)
 
 ## 1.0.12
 
-- Fix regression introduced in 1.0.8 with transformations; pass unscaled width and height as "default" params (and add additional `scaledHeight` and `scaledWidth` params to `children` function)
-- Use `ResizeObserver` when possible; fallback to legacy resize polyfill logic otherwise
+- Fix regression introduced in 1.0.8 with transformations; pass unscaled width and height as "default" params (and add additional `scaledHeight` and `scaledWidth` params to `children` function).
+- Use `ResizeObserver` when possible; fall back to legacy resize polyfill logic otherwise.
 
 ## 1.0.11
 
-- Pre-transform static class property syntax (`defaultProps`) ([#46](https://github.com/bvaughn/react-virtualized-auto-sizer/issues/46))
-- Fixed bad TypeScript definition for `onResize` prop ([#44](https://github.com/bvaughn/react-virtualized-auto-sizer/issues/44))
+- Pre-transform static class property syntax (`defaultProps`). - [#46](https://github.com/bvaughn/react-virtualized-auto-sizer/issues/46)
+- Fix bad TypeScript definition for `onResize` prop. - [#44](https://github.com/bvaughn/react-virtualized-auto-sizer/issues/44)
 
 ## 1.0.10
 
@@ -150,25 +158,25 @@ const MemoizedChild = memo(
 
 ## 1.0.9
 
-- Add optional `tagName` property (default to `"div"`).
+- Add optional `tagName` prop (defaults to `"div"`).
 
 ## 1.0.8
 
-- Replace `offsetHeight`/`offsetWidth` with `getBoundingClientRect` to better support floating size values
-- Spread all additional props onto out `HTMLDivElement`
+- Replace `offsetHeight`/`offsetWidth` with `getBoundingClientRect` to better support floating point size values.
+- Spread all additional props onto our `HTMLDivElement`.
 
 ## 1.0.7
 
-- Add peer dependency for `"react"` / `"react-dom"` version 18
+- Add peer dependency for `"react"` / `"react-dom"` version 18.
 
 ## 1.0.6
 
-- Fixed rAF throttling issue caused by new Chrome flag (#39)
+- Fix rAF throttling issue caused by new Chrome flag. - [#39](https://github.com/bvaughn/react-virtualized-auto-sizer/issues/39)
 
 ## 1.0.5
 
-- Add peer dependency for `"react"` / `"react-dom"` version 17
+- Add peer dependency for `"react"` / `"react-dom"` version 17.
 
 ## 1.0.4
 
-- Do not use `innerHTML` when detecting element resize as this will throw an error if the page uses Trusted Types (#30)
+- Do not use `innerHTML` when detecting element resize as this will throw an error if the page uses Trusted Types. - [#30](https://github.com/bvaughn/react-virtualized-auto-sizer/issues/30)

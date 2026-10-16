@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from "react";
+import { useCallback, useLayoutEffect, useRef } from "react";
 import type { Size } from "../types";
 import { createDetectElementResize } from "../vendor/detectElementResize";
 
@@ -35,7 +35,7 @@ export function useSize({
     stableValuesRef.current.onResize = onResize;
   });
 
-  const onResizeStableRef = useRef(() => {
+  const onResizeStable = useCallback(() => {
     const { onResize, parentNode, prevSize } = stableValuesRef.current;
     if (parentNode === null) {
       return;
@@ -96,7 +96,7 @@ export function useSize({
         width
       });
     }
-  });
+  }, [box]);
 
   useLayoutEffect(() => {
     if (rootElement === null) {
@@ -114,8 +114,6 @@ export function useSize({
     }
 
     stableValuesRef.current.parentNode = parentNode;
-
-    const onResizeStable = onResizeStableRef.current;
 
     // Use ResizeObserver from the same context where parentNode (which we will observe) was defined
     // Using just global can result into onResize events not being emitted in cases with multiple realms
@@ -149,5 +147,5 @@ export function useSize({
         detectElementResize.removeResizeListener(parentNode, onResizeStable);
       };
     }
-  }, [nonce, rootElement]);
+  }, [nonce, onResizeStable, rootElement]);
 }

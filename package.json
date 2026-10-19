@@ -41,6 +41,7 @@
     "compile": "pnpm run compile:docs && pnpm run compile:examples",
     "compile:docs": "tsx ./scripts/compile-docs",
     "compile:examples": "tsx ./scripts/compile-examples",
+    "compile:search-index": "tsx ./scripts/compile-search-index",
     "compress:og-image": "tsx ./scripts/compress-og-image",
     "e2e:install": "pnpm -C integrations/vite/ exec playwright install --with-deps",
     "e2e:test": "pnpm -C integrations/vite/ run test",

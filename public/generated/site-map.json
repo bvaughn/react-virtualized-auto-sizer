@@ -1,0 +1,114 @@
+[
+  {
+    "path": "/",
+    "text": "This package measures the available width and height of an HTMLElement and passes those values as props to a ChildComponent or renderProp. Refer to the examples or props pages for more information. This package began as a fork of the AutoSizer component from react-virtualized, and was intended for use with earlier versions of react-window. More recent versions of react-window use ResizeObserver natively and do not require this package. Installation Begin by installing the library from NPM: npm install react-virtualized-auto-sizer TypeScript definitions are included within the published dist folder. Support Here are some ways to support this project: Become a GitHub sponsor Buy me a coffee",
+    "title": "Getting started with react-virtualized-auto-sizer"
+  },
+  {
+    "headings": [
+      {
+        "id": "flexbox",
+        "title": "Can I use this component with Flexbox?",
+        "text": "Can I use this component with Flexbox? Flex containers don't prevent their children from growing and AutoSizer greedily grows to fill as much space as possible. Combining the two can be problematic. The simple way to fix this is to nest AutoSizer inside of a block element (like a <div>) rather than putting it as a direct child of the flex container, like so: <div style={{ display: \"flex\" }}>\n {/* Other children... */}\n <div style={{ flex: \"1 1 auto\" }}>\n <AutoSizer Child={ChildComponent} />\n </div>\n</div>"
+      },
+      {
+        "id": "height-zero",
+        "title": "Why is height 0?",
+        "text": "Why is height 0? AutoSizer expands to _fill_ its parent but it will not _stretch_ the parent. This is done to prevent problems with Flex layouts. If AutoSizer is reporting a height (or width) of 0- then it's likely that the parent element (or one of its parents) has a height of 0. The solution to this problem is often to add height: 100% or flex: 1 to the parent. One easy way to test this is to add a style property (eg. background-color: red;) to the parent to visually confirm that it is the expected size."
+      },
+      {
+        "id": "only-width-or-height",
+        "title": "Can I use AutoSizer to observe only width or height (not both)?",
+        "text": "Can I use AutoSizer to observe only width or height (not both)? No, but you can memoize your child component so that it only re-renders if width (or height) changes. import { memo } from \"react\";\nimport type { SizeProps } from \"react-virtualized-auto-sizer\";\n \nconst MemoizedChildComponent = memo(\n ChildComponent,\n function arePropsEqual(oldProps: SizeProps, newProps: SizeProps) {\n return oldProps.height === newProps.height;\n }\n);"
+      },
+      {
+        "id": "csp",
+        "title": "Can this component work with a Content Security Policy?",
+        "text": "Can this component work with a Content Security Policy? The Content Security Policy specification states: Individual inline scripts and stylesheets may be whitelisted via nonces. To apply Content Security Policy nonce to AutoSizer, use the nonce prop and add a matching nonce-source to the Content-Security-Policy field in HTTP header."
+      }
+    ],
+    "path": "/common-questions",
+    "text": "",
+    "title": "Common questions"
+  },
+  {
+    "path": "/examples/child-component",
+    "section": "Examples",
+    "text": "AutoSizer measures the available width and height of its parent HTMLElement and passes them as props to a child component. import { AutoSizer, type AutoSizerChildProps } from \"react-virtualized-auto-sizer\";\n \nfunction ExampleComponent() {\n return (\n <AutoSizer ChildComponent={ChildComponent} />\n )\n}\n \n// Height and width will be undefined for the initial render (or when server rendering)\n// You can either set default values (as shown below) or render some sort of placeholder\nfunction ChildComponent({ height = 600, width = 600 }: AutoSizerChildProps) {\n return <div>{width} x {height} pixels</div>;\n} The child component is auto-memoized to avoid re-rendering until the size has changed.",
+    "title": "Child component"
+  },
+  {
+    "path": "/examples/render-prop",
+    "section": "Examples",
+    "text": "The child of an AutoSizer can also be a render prop. import { AutoSizer } from \"react-virtualized-auto-sizer\";\n \nfunction ExampleComponent(props: ExampleComponentProps) {\n const [state, setState] = useState(\"...\");\n \n return (\n <AutoSizer renderProp={\n ({ height = 600, width = 800 }) => {\n // Render prop can access width and height params,\n // as well as the parent component props and state\n }\n } />\n )\n} Render props provide the added benefit of being able to reference other values that are in scope.",
+    "title": "Render prop function"
+  },
+  {
+    "headings": [
+      {
+        "id": "box",
+        "title": "box",
+        "text": "box?: \"border-box\" | \"content-box\" | \"device-pixel-content-box\" = \"content-box\" Corresponds to the ResizeObserver box parameter.\nSets which box model the observer will observe changes to.\n \n border-box: Size of the box border area as defined in CSS.\n content-box: Size of the content area as defined in CSS.\n device-pixel-content-box: The size of the content area as defined in CSS, in device pixels, before applying any CSS transforms on the element or its ancestors."
+      },
+      {
+        "id": "Child",
+        "title": "Child",
+        "text": "Child?: ChildComponent Child component to be passed the available width and height values as props.\n This prop has been deprecated. Use the ChildComponent or renderProp props instead."
+      },
+      {
+        "id": "ChildComponent",
+        "title": "ChildComponent",
+        "text": "ChildComponent?: ChildComponent Child component to be passed the available width and height values as props.\n Use renderProp instead if you need access to local state.\n Width and height are undefined during the during the initial render (including server-rendering)."
+      },
+      {
+        "id": "className",
+        "title": "className",
+        "text": "className?: string Class name to be applied to the auto-sizer HTMLElement."
+      },
+      {
+        "id": "data-testid",
+        "title": "data-testid",
+        "text": "data-testid?: string Test id attribute to interop with frameworks like Testing Library."
+      },
+      {
+        "id": "id",
+        "title": "id",
+        "text": "id?: string | number Unique id attribute to attach to root DOM element."
+      },
+      {
+        "id": "nonce",
+        "title": "nonce",
+        "text": "nonce?: string Nonce used for inline StyleSheet\nin browsers/environments that do not support the ResizeObserver API."
+      },
+      {
+        "id": "onResize",
+        "title": "onResize",
+        "text": "onResize?: ((size: { height: number; width: number; }) => void) Optional callback notified after a resize.\n\n size New width and height of parent element"
+      },
+      {
+        "id": "renderProp",
+        "title": "renderProp",
+        "text": "renderProp?: RenderProp Render prop to be passed the available width and height values as props.\n Use ChildComponent instead for better memoization if you do not need access to local state.\n Width and height are undefined during the during the initial render (including server-rendering)."
+      },
+      {
+        "id": "style",
+        "title": "style",
+        "text": "style?: CSSProperties Style properties to be applied to the auto-sizer HTMLElement."
+      },
+      {
+        "id": "tagName",
+        "title": "tagName",
+        "text": "tagName?: string = \"div\" Optional HTML tag name for root HTMLElement; defaults to \"div\"."
+      }
+    ],
+    "path": "/props/auto-sizer",
+    "section": "Props",
+    "text": "Measures the available width and height of its parent HTMLElement and passes those values as width and height props to its children.\n This component began as a fork of the javascript-detect-element-resize package.",
+    "title": "AutoSizer component props"
+  },
+  {
+    "path": "/support",
+    "text": "GitHub is the easiest place to look for help, but it's probably not the fastest. This project is maintained by a single developer so there is limited bandwidth for answering questions. I recommend asking questions on Stack Overflow or Reddit to start with. Both sites have active communities who often respond quickly. If you don't find an answer there you can try opening a GitHub issue- but please take a moment first to see if your question has has already been answered before opening a new one.",
+    "title": "Support"
+  }
+]

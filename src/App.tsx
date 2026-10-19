@@ -18,6 +18,7 @@ export default function App() {
   return (
     <AppRoot
       commonQuestions={commonQuestions}
+      enableSiteSearch
       nav={nav}
       overview={
         <>

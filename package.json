@@ -38,7 +38,7 @@
     "build": "pnpm run build:lib && pnpm run build:docs",
     "build:docs": "TARGET=docs vite build",
     "build:lib": "TARGET=lib vite build",
-    "compile": "pnpm run compile:docs && pnpm run compile:examples",
+    "compile": "pnpm run --sequential /^compile:.*/",
     "compile:docs": "tsx ./scripts/compile-docs",
     "compile:examples": "tsx ./scripts/compile-examples",
     "compile:search-index": "tsx ./scripts/compile-search-index",

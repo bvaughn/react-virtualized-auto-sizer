@@ -19,23 +19,21 @@ Frequently asked questions can be found [here](https://react-virtualized-auto-si
 
 ## Documentation
 
+<!-- react-lib-tools:api:begin -->
+
+## Components
+
 ### AutoSizer
 
-<!-- AutoSizer:description:begin -->
 Measures the available width and height of its parent `HTMLElement` and passes those values as `width` and `height` props to its `children`.
 
 ℹ️ This component began as a fork of the [javascript-detect-element-resize](https://www.npmjs.com/package/javascript-detect-element-resize) package.
-<!-- AutoSizer:description:end -->
 
 #### Required props
 
-<!-- AutoSizer:required-props:begin -->
 None
-<!-- AutoSizer:required-props:end -->
 
 #### Optional props
-
-<!-- AutoSizer:optional-props:begin -->
 
 <table>
   <thead>
@@ -79,8 +77,10 @@ in browsers/environments that do not support the <code>ResizeObserver</code> API
     </tr>
     <tr>
       <td>onResize</td>
-      <td><p>Optional callback notified after a resize.
-@param size New width and height of parent element</p>
+      <td><p>Optional callback notified after a resize.</p>
+<ul>
+<li><code>size</code> New width and height of parent element</li>
+</ul>
 </td>
     </tr>
     <tr>
@@ -95,8 +95,8 @@ in browsers/environments that do not support the <code>ResizeObserver</code> API
     </tr>
     <tr>
       <td>Child</td>
-      <td><p>Child component to be passed the available width and height values as props.
-@deprecated Use the <code>ChildComponent</code> or <code>renderProp</code> props instead.</p>
+      <td><p>Child component to be passed the available width and height values as props.</p>
+<p>❌ This prop has been deprecated. Use the <code>ChildComponent</code> or <code>renderProp</code> props instead.</p>
 </td>
     </tr>
     <tr>
@@ -116,4 +116,4 @@ in browsers/environments that do not support the <code>ResizeObserver</code> API
   </tbody>
 </table>
 
-<!-- AutoSizer:optional-props:end -->
+<!-- react-lib-tools:api:end -->
